@@ -61,7 +61,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         private final TextView name;
         private final TextView description;
         private final TextView type;
-        private final TextView location;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,7 +72,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             this.name = itemView.findViewById(R.id.restaurant_name);
             this.description = itemView.findViewById(R.id.restaurant_description);
             this.type = itemView.findViewById(R.id.restaurant_type);
-            this.location = itemView.findViewById(R.id.restaurant_location);
         }
 
         public void bind(Restaurant restaurant) {
