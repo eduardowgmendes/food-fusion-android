@@ -18,7 +18,6 @@
         android:text="Name"
         android:textAppearance="?attr/textAppearanceTitleLarge"
         android:textColor="?attr/colorPrimary"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/properties"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

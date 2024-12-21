@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class RestaurantListFragment extends Fragment {
     public static final String TAG = RestaurantListFragment.class.getSimpleName();
 
     private List<Restaurant> restaurants;
-    private RestaurantListAdapter restaurantListAdapter;
 
     public RestaurantListFragment() {
         // Required empty public constructor
@@ -49,8 +49,8 @@ public class RestaurantListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.restaurantListAdapter = new RestaurantListAdapter(restaurants);
-        this.restaurantListAdapter.setOnItemClickListener((RestaurantListAdapter.OnItemClickListener) position -> {
+        RestaurantListAdapter restaurantListAdapter = new RestaurantListAdapter(restaurants);
+        restaurantListAdapter.setOnItemClickListener((RestaurantListAdapter.OnItemClickListener) position -> {
             long restaurantId = restaurants.get(position).getId();
 
             Intent intent = new Intent(getContext(), OverviewActivity.class);

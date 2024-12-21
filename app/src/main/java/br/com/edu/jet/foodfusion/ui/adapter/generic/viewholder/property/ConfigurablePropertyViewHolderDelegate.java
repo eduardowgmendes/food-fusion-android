@@ -52,6 +52,9 @@ public class ConfigurablePropertyViewHolderDelegate implements ViewHolderDelegat
             else propertyDescription.setVisibility(View.GONE);
 
             actionButton.setOnClickListener(property.getActionListener());
+            itemView.setOnClickListener(property.getActionListener());
+            actionButton.setText(property.getActionLabel());
+            actionButton.setIconResource(property.getActionIcon());
         }
     }
 }

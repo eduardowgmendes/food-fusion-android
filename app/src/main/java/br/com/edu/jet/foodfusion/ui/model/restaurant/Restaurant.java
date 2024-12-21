@@ -34,7 +34,7 @@ public class Restaurant implements Parcelable {
     public Restaurant() {
     }
 
-    protected Restaurant(Parcel in) {
+    public Restaurant(Parcel in) {
         id = in.readLong();
         name = in.readString();
         description = in.readString();

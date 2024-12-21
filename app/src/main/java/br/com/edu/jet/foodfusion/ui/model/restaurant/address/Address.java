@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.Objects;
 
 public class Address implements Parcelable {
+
     private String street;
     private String localNumber;
     private String neighborhood;

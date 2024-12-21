@@ -42,7 +42,7 @@ public class RestaurantOverviewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            restaurant = getArguments().getParcelable(TAG);
+            restaurant = getArguments().getParcelable(TAG, Restaurant.class);
         }
     }
 

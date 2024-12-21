@@ -13,6 +13,7 @@ import java.util.List;
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.adapter.generic.PropertiesAdapter;
 import br.com.edu.jet.foodfusion.ui.adapter.generic.ViewHolderDelegate;
+import br.com.edu.jet.foodfusion.ui.adapter.generic.viewholder.property.CondensedPropertyViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.generic.viewholder.property.ConfigurablePropertyViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.generic.viewholder.property.ListPropertyViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.generic.viewholder.property.MessagePropertyViewHolderDelegate;
@@ -65,6 +66,7 @@ public class OverviewSectionViewHolderDelegate implements ViewHolderDelegate<Def
             adapter.registerDelegate(PropertyType.KEY_LIST.getCode(), new ListPropertyViewHolderDelegate());
             adapter.registerDelegate(PropertyType.CONFIGURABLE.getCode(), new ConfigurablePropertyViewHolderDelegate());
             adapter.registerDelegate(PropertyType.MESSAGE.getCode(), new MessagePropertyViewHolderDelegate());
+            adapter.registerDelegate(PropertyType.CONDENSED.getCode(), new CondensedPropertyViewHolderDelegate());
 
             propertiesList.setAdapter(adapter);
         }

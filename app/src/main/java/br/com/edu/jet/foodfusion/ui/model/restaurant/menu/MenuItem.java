@@ -5,13 +5,14 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class MenuItem implements Parcelable {
     private String name;
     private String description;
-    private List<ShowcasePicture> showcasePictures;
+    private List<ShowcasePicture> showcasePictures = new ArrayList<>();
 
     public MenuItem() {
     }
@@ -19,6 +20,7 @@ public class MenuItem implements Parcelable {
     protected MenuItem(Parcel in) {
         name = in.readString();
         description = in.readString();
+        showcasePictures = in.readArrayList(ShowcasePicture.class.getClassLoader(), ShowcasePicture.class);
     }
 
     public static final Creator<MenuItem> CREATOR = new Creator<MenuItem>() {
@@ -88,5 +90,6 @@ public class MenuItem implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(description);
+        dest.writeList(showcasePictures);
     }
 }

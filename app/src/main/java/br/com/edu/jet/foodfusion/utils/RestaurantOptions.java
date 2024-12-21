@@ -6,11 +6,10 @@ import android.view.View;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import br.com.edu.jet.foodfusion.R;
+import br.com.edu.jet.foodfusion.ui.component.content.section.property.CondensedProperty;
 import br.com.edu.jet.foodfusion.ui.component.content.section.property.ConfigurableProperty;
-import br.com.edu.jet.foodfusion.ui.component.content.section.property.ListProperty;
 import br.com.edu.jet.foodfusion.ui.component.content.section.property.MessageProperty;
 import br.com.edu.jet.foodfusion.ui.component.content.section.property.Property;
 import br.com.edu.jet.foodfusion.ui.component.content.section.property.StringProperty;
@@ -31,6 +30,7 @@ public class RestaurantOptions {
     public List<Property> getGeneralInfo() {
         List<Property> properties = new ArrayList<>();
         composeGeneralInfo(restaurant, properties);
+        composeManagementDates(restaurant, properties);
         return properties;
     }
 
@@ -52,6 +52,12 @@ public class RestaurantOptions {
         return properties;
     }
 
+    public List<Property> getManagementDates() {
+        List<Property> properties = new ArrayList<>();
+        composeManagementDates(restaurant, properties);
+        return properties;
+    }
+
     public List<Property> getAll() {
         return attributesOf(restaurant);
     }
@@ -64,22 +70,28 @@ public class RestaurantOptions {
         composeAddresses(restaurant, attributes);
         composeMenus(restaurant, attributes);
         composePhones(restaurant, attributes);
+        composeManagementDates(restaurant, attributes);
+        composeDeletion(restaurant, attributes);
 
+        return attributes;
+    }
+
+    private void composeDeletion(Restaurant restaurant, List<Property> attributes) {
+        attributes.add(new StringProperty("Deleted", YesNoEnum.valueOf(restaurant.isDeleted())));
+    }
+
+    private void composeManagementDates(Restaurant restaurant, List<Property> attributes) {
         LocalDateTime createdAt = restaurant.getCreatedAt();
         if (createdAt != null)
-            attributes.add(new StringProperty("Created At", restaurant.getCreatedAt().toString()));
+            attributes.add(new ConfigurableProperty("Created At", LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getCreatedAt().toString()), R.drawable.baseline_access_time_24, "Timeline", this::showDialog));
 
         LocalDateTime updatedAt = restaurant.getUpdatedAt();
         if (updatedAt != null)
-            attributes.add(new StringProperty("Updated At", restaurant.getUpdatedAt().toString()));
+            attributes.add(new ConfigurableProperty("Updated At", LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getUpdatedAt().toString()), R.drawable.baseline_access_time_24, "Timeline", this::showDialog));
 
         LocalDateTime deletedAt = restaurant.getDeletedAt();
         if (deletedAt != null)
-            attributes.add(new StringProperty("Deleted At", restaurant.getDeletedAt().toString()));
-
-        attributes.add(new StringProperty("Deleted", YesNoEnum.valueOf(restaurant.isDeleted())));
-
-        return attributes;
+            attributes.add(new StringProperty("Deleted At", LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getDeletedAt().toString())));
     }
 
     private void composeGeneralInfo(Restaurant restaurant, List<Property> attributes) {
@@ -119,12 +131,7 @@ public class RestaurantOptions {
         List<Menu> menus = restaurant.getMenus();
         if (menus != null && !menus.isEmpty()) {
             for (Menu menu : menus) {
-                attributes.add(new StringProperty("Name", menu.getName()));
-                attributes.add(new StringProperty("Description", menu.getDescription()));
-                attributes.add(new ListProperty("Items", menu.getItems()
-                        .stream()
-                        .map(menuItem -> StringProperty.create(menuItem.getName(), menuItem.getDescription()))
-                        .collect(Collectors.toList())));
+                attributes.add(new CondensedProperty(menu.getName(), this::showDialog, R.drawable.baseline_chevron_right_24));
             }
         } else {
             attributes.add(new ConfigurableProperty("Menus", "No menus available", R.drawable.baseline_add_24, "New", this::showDialog));
