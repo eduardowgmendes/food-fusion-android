@@ -36,7 +36,7 @@ public class MessagePropertyViewHolderDelegate implements ViewHolderDelegate<Mes
         private final ImageView icon;
         private final TextView title, message;
         private final MaterialCardView messageContainer;
-        private MaterialButton actionButton;
+        private final MaterialButton actionButton;
 
         public MessagePropertyViewHolder(@NonNull View itemView) {
             super(itemView);

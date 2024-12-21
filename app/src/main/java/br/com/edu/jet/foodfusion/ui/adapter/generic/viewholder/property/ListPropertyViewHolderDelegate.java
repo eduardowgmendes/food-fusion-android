@@ -52,6 +52,7 @@ public class ListPropertyViewHolderDelegate implements ViewHolderDelegate<ListPr
                 PropertiesAdapter<Property> adapter = new PropertiesAdapter<>(childProperties);
                 adapter.registerDelegate(PropertyType.KEY_VALUE.getCode(), new StringPropertyViewHolderDelegate());
                 adapter.registerDelegate(PropertyType.KEY_LIST.getCode(), new ListPropertyViewHolderDelegate());
+
                 properties.setAdapter(adapter);
             }
         }
