@@ -7,4 +7,4 @@
     android:orientation="vertical"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:context=".ui.fragment.RestaurantOverviewFragment"
-    tools:listitem="@layout/section_properties_list_item_layout" />
+    tools:listitem="@layout/default_section_layout" />

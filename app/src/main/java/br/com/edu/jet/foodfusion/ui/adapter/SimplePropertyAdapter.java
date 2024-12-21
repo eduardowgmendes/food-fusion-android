@@ -1,6 +1,5 @@
 package br.com.edu.jet.foodfusion.ui.adapter;
 
-import android.content.ContextWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +32,7 @@ public class SimplePropertyAdapter extends RecyclerView.Adapter<SimplePropertyAd
     @NonNull
     @Override
     public SimplePropertyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SimplePropertyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.property_item_layout, parent, false));
+        return new SimplePropertyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.string_property_layout, parent, false));
     }
 
     @Override

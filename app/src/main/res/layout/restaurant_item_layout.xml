@@ -7,18 +7,41 @@
     android:clickable="true"
     android:focusable="true">
 
-    <ImageView
-        android:id="@+id/restaurant_profile_picture"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:contentDescription="Restaurant logo"
-        android:scaleType="fitCenter"
-        android:src="@drawable/baseline_restaurant_24"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:contentPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorOnSurface" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/restaurant_profile_picture"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:contentDescription="Restaurant logo"
+                android:scaleType="fitCenter"
+                android:src="@drawable/baseline_restaurant_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/colorOnSurface" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 
     <TextView
         android:id="@+id/restaurant_name"
@@ -31,12 +54,12 @@
         android:fontFamily="sans-serif-condensed"
         android:maxLines="1"
         android:text="Dragon’s Breath"
-        android:textAppearance="?attr/textAppearanceBody2"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
         android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/restaurant_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_profile_picture"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -48,11 +71,11 @@
         android:ellipsize="end"
         android:maxLines="3"
         android:text="Spicy Szechuan cuisine with bold flavors."
-        android:textAppearance="?attr/textAppearanceBody2"
+        android:textAppearance="?attr/textAppearanceBody1"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@+id/restaurant_type"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_profile_picture"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_name" />
 
     <TextView
@@ -60,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
@@ -69,7 +92,7 @@
         android:textAppearance="?attr/textAppearanceCaption"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_profile_picture"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
