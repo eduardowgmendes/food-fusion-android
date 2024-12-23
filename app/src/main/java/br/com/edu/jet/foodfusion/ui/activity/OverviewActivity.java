@@ -12,7 +12,7 @@ import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 import br.com.edu.jet.foodfusion.ui.fragment.EmptyStateFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.LoaderFragment;
-import br.com.edu.jet.foodfusion.ui.fragment.OverviewFragment;
+import br.com.edu.jet.foodfusion.ui.fragment.RestaurantOverviewFragment;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
 
 public class OverviewActivity extends BaseActivity {
@@ -43,13 +43,13 @@ public class OverviewActivity extends BaseActivity {
         if (restaurantId != 0) {
             restaurantViewModel.getById(restaurantId).observe(this, restaurant -> {
                 if (restaurant != null) {
-                    replace(R.id.overview_contents, OverviewFragment.newInstance(restaurant));
+                    replace(R.id.overview_contents, RestaurantOverviewFragment.newInstance(restaurant));
                 } else {
-                    replace(R.id.overview_contents, EmptyStateFragment.newInstance(new EmptyState(R.drawable.baseline_add_circle_24, "Oww, such empty!", "There's no data to show")));
+                    replace(R.id.overview_contents, EmptyStateFragment.newInstance(new EmptyState(R.drawable.nothing_found, getResources().getString(R.string.no_items_found_title), getResources().getString(R.string.no_items_found_message))));
                 }
             });
         } else {
-            replace(R.id.overview_contents, EmptyStateFragment.newInstance(new EmptyState(R.drawable.baseline_error_24, "Oops! Something went wrong!", "Failed to request data to server.")));
+            replace(R.id.overview_contents, EmptyStateFragment.newInstance(new EmptyState(R.drawable.not_connected, getResources().getString(R.string.server_issue_title), getResources().getString(R.string.server_issue_message))));
         }
     }
 }

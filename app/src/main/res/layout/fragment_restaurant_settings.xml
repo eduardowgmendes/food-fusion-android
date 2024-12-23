@@ -6,5 +6,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".ui.fragment.OverviewFragment"
+    tools:context=".ui.fragment.RestaurantSettingsFragment"
     tools:listitem="@layout/default_section_layout" />

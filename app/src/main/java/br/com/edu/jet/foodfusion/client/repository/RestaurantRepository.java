@@ -1,7 +1,5 @@
 package br.com.edu.jet.foodfusion.client.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,7 +8,6 @@ import java.util.stream.Collectors;
 
 import br.com.edu.jet.foodfusion.FoodFusionApplication;
 import br.com.edu.jet.foodfusion.client.FoodFusionAPI;
-import br.com.edu.jet.foodfusion.client.converter.RestaurantConverter;
 import br.com.edu.jet.foodfusion.client.converter.RestaurantConverterHelper;
 import br.com.edu.jet.foodfusion.client.response.RetrieveRestaurantsResponse;
 import br.com.edu.jet.foodfusion.client.response.SearchRestaurantResponse;
@@ -37,10 +34,11 @@ public class RestaurantRepository {
             @Override
             public void onResponse(Call<RetrieveRestaurantsResponse> call, Response<RetrieveRestaurantsResponse> response) {
                 if (response.isSuccessful()) {
-                    data.setValue(response.body().getRestaurants()
-                            .stream()
-                            .map(RestaurantConverterHelper::toRestaurant)
-                            .collect(Collectors.toList()));
+                    RetrieveRestaurantsResponse retrieveResponse = response.body();
+                        data.setValue(retrieveResponse.getRestaurants()
+                                .stream()
+                                .map(RestaurantConverterHelper::toRestaurant)
+                                .collect(Collectors.toList()));
                 }
             }
 

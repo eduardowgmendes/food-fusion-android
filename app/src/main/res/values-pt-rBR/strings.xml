@@ -38,7 +38,8 @@
     <string name="deleted_title">Apagado</string>
     <string name="establishment_title">Restaurante</string>
     <string name="contact_title">Contato</string>
-    <string name="location_title">Localização</string>
+    <string name="contacts_title">Contatos</string>
+    <string name="location_title">Localidade</string>
     <string name="establishment_message">Gerencie informações gerais sobre o restaurante, incluindo nome, descrição e horário de funcionamento.</string>
     <string name="menus_message">Crie, organize e atualize os menus e itens do restaurante.</string>
     <string name="contact_message">Cadastre e mantenha os números de telefone de contato do restaurante.</string>
@@ -54,5 +55,9 @@
     <string name="no_items_found_message">Parece que ainda não há nada aqui. Volte mais tarde!</string>
     <string name="location_unavailable_title">Localização Indisponível</string>
     <string name="location_unavailable_message">Não conseguimos acessar sua localização. Por favor, habilite nas configurações.</string>
-
+    <string name="general_title">Geral</string>
+    <string name="localization_title">Localização</string>
+    <!-- Tabs -->
+    <string name="profile">Perfil</string>
+    <string name="menus">Cardápios</string>
 </resources>

@@ -39,6 +39,7 @@
     <string name="deleted_title">Deleted</string>
     <string name="establishment_title">Restaurant</string>
     <string name="contact_title">Contact</string>
+    <string name="contacts_title">Contacts</string>
     <string name="location_title">Location</string>
     <string name="establishment_message">Manage general information about the restaurant, including name, description, and opening hours.</string>
     <string name="menus_message">Create, organize, and update the restaurant\'s menus and items.</string>
@@ -55,4 +56,11 @@
     <string name="no_items_found_message">It looks like there\'s nothing here yet. Check back later!</string>
     <string name="location_unavailable_title">Location Unavailable</string>
     <string name="location_unavailable_message">We could’t access your location. Please enable it in settings.</string>
+    <string name="general_title">General</string>
+    <string name="localization_title">Localization</string>
+
+    <!-- Tabs -->
+    <string name="profile">Profile</string>
+    <string name="menus">Menus</string>
+
 </resources>
