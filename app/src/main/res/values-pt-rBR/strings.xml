@@ -36,7 +36,7 @@
     <string name="updated_at_title">Atualizado em</string>
     <string name="created_at_title">Criado em</string>
     <string name="deleted_title">Apagado</string>
-    <string name="establishment_title">Estabelecimento</string>
+    <string name="establishment_title">Restaurante</string>
     <string name="contact_title">Contato</string>
     <string name="location_title">Localização</string>
     <string name="establishment_message">Gerencie informações gerais sobre o restaurante, incluindo nome, descrição e horário de funcionamento.</string>

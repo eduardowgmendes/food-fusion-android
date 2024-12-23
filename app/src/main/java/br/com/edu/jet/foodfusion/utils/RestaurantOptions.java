@@ -102,7 +102,7 @@ public class RestaurantOptions {
         if (logo != null)
             attributes.add(new BasicItem(context.getResources().getString(R.string.logo_title), restaurant.getLogo()));
         else
-            attributes.add(new MessageItem(R.drawable.baseline_error_24, context.getResources().getString(R.string.logo_title), context.getResources().getString(R.string.no_logo_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.add_something_button_hint), this::showDialog));
+            attributes.add(new MessageItem(R.drawable.twotone_broken_image_24, context.getResources().getString(R.string.logo_title), context.getResources().getString(R.string.no_data), R.drawable.baseline_add_24, context.getResources().getString(R.string.add_something_button_hint), this::showDialog));
 
         attributes.add(BasicItem.create(context.getResources().getString(R.string.name_label), restaurant.getName()));
         attributes.add(BasicItem.create(context.getResources().getString(R.string.description_label), restaurant.getDescription()));

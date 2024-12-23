@@ -7,7 +7,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/message_container"
-        style="?attr/materialCardViewFilledStyle"
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -52,7 +52,7 @@
                 android:labelFor="@id/section_description"
                 android:maxLines="1"
                 android:text="Name"
-                android:textAppearance="?attr/textAppearanceCaption"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/message"
@@ -70,7 +70,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="Logotipo não disponível"
-                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/action_button"
