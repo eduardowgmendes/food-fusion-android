@@ -9,10 +9,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import br.com.edu.jet.foodfusion.R;
-import br.com.edu.jet.foodfusion.ui.component.content.emptystate.EmptyState;
+import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 import br.com.edu.jet.foodfusion.ui.fragment.EmptyStateFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.LoaderFragment;
-import br.com.edu.jet.foodfusion.ui.fragment.RestaurantOverviewFragment;
+import br.com.edu.jet.foodfusion.ui.fragment.OverviewFragment;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
 
 public class OverviewActivity extends BaseActivity {
@@ -43,7 +43,7 @@ public class OverviewActivity extends BaseActivity {
         if (restaurantId != 0) {
             restaurantViewModel.getById(restaurantId).observe(this, restaurant -> {
                 if (restaurant != null) {
-                    replace(R.id.overview_contents, RestaurantOverviewFragment.newInstance(restaurant));
+                    replace(R.id.overview_contents, OverviewFragment.newInstance(restaurant));
                 } else {
                     replace(R.id.overview_contents, EmptyStateFragment.newInstance(new EmptyState(R.drawable.baseline_add_circle_24, "Oww, such empty!", "There's no data to show")));
                 }

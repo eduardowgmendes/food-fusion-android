@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading_something_hint">Carregando…</string>
+    <string name="overview_toolbar_title">Visão Geral</string>
+    <string name="add_something_button_hint">Adicionar</string>
+    <string name="create_something_button_hint">Novo</string>
+    <string name="remove_something_button_hint">Remover</string>
+    <string name="delete_something_button_hint">Deletar</string>
+
+    <!-- Reserved for EmptyStates -->
+    <string name="connection_issue_title">Sem Conexão com a Intenet</string>
+    <string name="connection_issue_message">Você está offline. Cheque sua conexão e tente novamente.</string>
+    <string name="general_issue_title">Oops! Algo Deu Errado</string>
+    <string name="general_issue_message">Tivemos um problema técnico. Tente novamente ou reinicie a aplicação.</string>
+    <string name="server_issue_title">Servido Fora de Alcance</string>
+    <string name="server_issue_message">Não foi possível se conectar ao servidor. Por favor, tente novamente.</string>
+    <string name="data_fetching_issue_title">Falha ao Buscar os Dados</string>
+    <string name="data_fetching_issue_message">Não foi possível se conectar ao servidor. Por favor, tente novamente.</string>
+    <string name="not_available_title">Não Disponível</string>
+    <string name="feature_not_implemented_message">Esta feature não está implementada ainda.</string>
+    <string name="no_addresses_available_message">Endereços não disponíveis</string>
+    <string name="addresses_title">Endereços</string>
+    <string name="address_title">Endereço</string>
+    <string name="phone_title">Telefone</string>
+    <string name="no_phones_available_message">Telefones não disponíveis</string>
+    <string name="phones_title">Telefones</string>
+    <string name="no_menus_available_message">Menus não disponíveis</string>
+    <string name="menus_title">Menus</string>
+    <string name="no_logo_available_message">Logotipo não disponível</string>
+    <string name="logo_title">Logotipo</string>
+    <string name="logos_title">Logotipos</string>
+    <string name="type_label">Tipo</string>
+    <string name="description_label">Descrição</string>
+    <string name="name_label">Nome</string>
+    <string name="deleted_at_title">Deletado em</string>
+    <string name="updated_at_title">Atualizado em</string>
+    <string name="created_at_title">Criado em</string>
+    <string name="deleted_title">Apagado</string>
+    <string name="establishment_title">Estabelecimento</string>
+    <string name="contact_title">Contato</string>
+    <string name="location_title">Localização</string>
+    <string name="establishment_message">Gerencie informações gerais sobre o restaurante, incluindo nome, descrição e horário de funcionamento.</string>
+    <string name="menus_message">Crie, organize e atualize os menus e itens do restaurante.</string>
+    <string name="contact_message">Cadastre e mantenha os números de telefone de contato do restaurante.</string>
+    <string name="location_message">Adicione e gerencie os detalhes de localização do restaurante para os clientes.</string>
+</resources>

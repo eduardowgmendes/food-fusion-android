@@ -1,6 +1,7 @@
 package br.com.edu.jet.foodfusion.utils;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.view.View;
 
 import java.time.LocalDateTime;
@@ -8,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.edu.jet.foodfusion.R;
-import br.com.edu.jet.foodfusion.ui.component.content.section.property.CondensedProperty;
-import br.com.edu.jet.foodfusion.ui.component.content.section.property.ConfigurableProperty;
-import br.com.edu.jet.foodfusion.ui.component.content.section.property.MessageProperty;
-import br.com.edu.jet.foodfusion.ui.component.content.section.property.Property;
-import br.com.edu.jet.foodfusion.ui.component.content.section.property.StringProperty;
+import br.com.edu.jet.foodfusion.ui.component.section.item.list.CondensedItem;
+import br.com.edu.jet.foodfusion.ui.component.section.item.list.ConfigurableItem;
+import br.com.edu.jet.foodfusion.ui.component.section.item.list.MessageItem;
+import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
+import br.com.edu.jet.foodfusion.ui.component.section.item.list.BasicItem;
 import br.com.edu.jet.foodfusion.ui.enums.YesNoEnum;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.address.Address;
@@ -21,50 +22,52 @@ import br.com.edu.jet.foodfusion.ui.model.restaurant.phone.Phone;
 
 public class RestaurantOptions {
 
+    private final Context context;
     private final Restaurant restaurant;
 
-    public RestaurantOptions(Restaurant restaurant) {
+    public RestaurantOptions(Context context, Restaurant restaurant) {
+        this.context = context;
         this.restaurant = restaurant;
     }
 
-    public List<Property> getGeneralInfo() {
-        List<Property> properties = new ArrayList<>();
+    public List<Item> getGeneralInfo() {
+        List<Item> properties = new ArrayList<>();
         composeGeneralInfo(restaurant, properties);
         composeManagementDates(restaurant, properties);
         return properties;
     }
 
-    public List<Property> getAddresses() {
-        List<Property> properties = new ArrayList<>();
+    public List<Item> getAddresses() {
+        List<Item> properties = new ArrayList<>();
         composeAddresses(restaurant, properties);
         return properties;
     }
 
-    public List<Property> getMenus() {
-        List<Property> properties = new ArrayList<>();
+    public List<Item> getMenus() {
+        List<Item> properties = new ArrayList<>();
         composeMenus(restaurant, properties);
         return properties;
     }
 
-    public List<Property> getPhones() {
-        List<Property> properties = new ArrayList<>();
+    public List<Item> getPhones() {
+        List<Item> properties = new ArrayList<>();
         composePhones(restaurant, properties);
         return properties;
     }
 
-    public List<Property> getManagementDates() {
-        List<Property> properties = new ArrayList<>();
+    public List<Item> getManagementDates() {
+        List<Item> properties = new ArrayList<>();
         composeManagementDates(restaurant, properties);
         return properties;
     }
 
-    public List<Property> getAll() {
+    public List<Item> getAll() {
         return attributesOf(restaurant);
     }
 
-    private List<Property> attributesOf(Restaurant restaurant) {
-        List<Property> attributes = new ArrayList<>();
-        attributes.add(new StringProperty("Id", String.valueOf(restaurant.getId())));
+    private List<Item> attributesOf(Restaurant restaurant) {
+        List<Item> attributes = new ArrayList<>();
+        attributes.add(new BasicItem("Id", String.valueOf(restaurant.getId())));
 
         composeGeneralInfo(restaurant, attributes);
         composeAddresses(restaurant, attributes);
@@ -76,73 +79,74 @@ public class RestaurantOptions {
         return attributes;
     }
 
-    private void composeDeletion(Restaurant restaurant, List<Property> attributes) {
-        attributes.add(new StringProperty("Deleted", YesNoEnum.valueOf(restaurant.isDeleted())));
+    private void composeDeletion(Restaurant restaurant, List<Item> attributes) {
+        attributes.add(new BasicItem(context.getResources().getString(R.string.deleted_title), YesNoEnum.valueOf(restaurant.isDeleted())));
     }
 
-    private void composeManagementDates(Restaurant restaurant, List<Property> attributes) {
+    private void composeManagementDates(Restaurant restaurant, List<Item> attributes) {
         LocalDateTime createdAt = restaurant.getCreatedAt();
         if (createdAt != null)
-            attributes.add(new ConfigurableProperty("Created At", LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getCreatedAt().toString()), R.drawable.baseline_access_time_24, "Timeline", this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.created_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getCreatedAt().toString()), R.drawable.baseline_access_time_24, context.getResources().getString(R.string.timeline_button_hint), this::showDialog));
 
         LocalDateTime updatedAt = restaurant.getUpdatedAt();
         if (updatedAt != null)
-            attributes.add(new ConfigurableProperty("Updated At", LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getUpdatedAt().toString()), R.drawable.baseline_access_time_24, "Timeline", this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.updated_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getUpdatedAt().toString()), R.drawable.baseline_access_time_24, context.getResources().getString(R.string.timeline_button_hint), this::showDialog));
 
         LocalDateTime deletedAt = restaurant.getDeletedAt();
         if (deletedAt != null)
-            attributes.add(new StringProperty("Deleted At", LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getDeletedAt().toString())));
+            attributes.add(new BasicItem(context.getResources().getString(R.string.deleted_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getDeletedAt().toString())));
     }
 
-    private void composeGeneralInfo(Restaurant restaurant, List<Property> attributes) {
+    private void composeGeneralInfo(Restaurant restaurant, List<Item> attributes) {
         String logo = restaurant.getLogo();
         if (logo != null)
-            attributes.add(new StringProperty("Logo", restaurant.getLogo()));
+            attributes.add(new BasicItem(context.getResources().getString(R.string.logo_title), restaurant.getLogo()));
         else
-            attributes.add(new MessageProperty(R.drawable.baseline_error_24, "Logo", "No logo available", R.drawable.baseline_add_24, "Add", this::showDialog));
-        attributes.add(new StringProperty("Name", restaurant.getName()));
-        attributes.add(new StringProperty("Description", restaurant.getDescription()));
-        attributes.add(new StringProperty("Type", restaurant.getType().getDescription()));
+            attributes.add(new MessageItem(R.drawable.baseline_error_24, context.getResources().getString(R.string.logos_title), context.getResources().getString(R.string.no_logo_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.add_something_button_hint), this::showDialog));
+
+        attributes.add(BasicItem.create(context.getResources().getString(R.string.name_label), restaurant.getName()));
+        attributes.add(BasicItem.create(context.getResources().getString(R.string.description_label), restaurant.getDescription()));
+        attributes.add(BasicItem.create(context.getResources().getString(R.string.type_label), restaurant.getType().getDescription()));
     }
 
-    private void composeAddresses(Restaurant restaurant, List<Property> attributes) {
+    private void composeAddresses(Restaurant restaurant, List<Item> attributes) {
         List<Address> addresses = restaurant.getAddresses();
         if (addresses != null && !addresses.isEmpty()) {
             for (Address address : addresses) {
-                attributes.add(new StringProperty("Address", address.full()));
+                attributes.add(new BasicItem(context.getResources().getString(R.string.address_title), address.full()));
             }
         } else {
-            attributes.add(new ConfigurableProperty("Addresses", "No addresses available", R.drawable.baseline_add_24, "New", this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.addresses_title), context.getResources().getString(R.string.no_addresses_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 
-    private void composePhones(Restaurant restaurant, List<Property> attributes) {
+    private void composePhones(Restaurant restaurant, List<Item> attributes) {
         List<Phone> phones = restaurant.getPhones();
         if (phones != null && !phones.isEmpty()) {
             for (Phone phone : phones) {
-                attributes.add(new StringProperty("Phone", String.format("(%s) %s", phone.getPrefix(), phone.getPhoneNumber())));
+                attributes.add(new BasicItem(context.getResources().getString(R.string.phone_title), String.format("(%s) %s", phone.getPrefix(), phone.getPhoneNumber())));
             }
         } else {
-            attributes.add(new ConfigurableProperty("Phones", "No phones available", R.drawable.baseline_add_24, "New", this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.phones_title), context.getResources().getString(R.string.no_phones_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 
-    private void composeMenus(Restaurant restaurant, List<Property> attributes) {
+    private void composeMenus(Restaurant restaurant, List<Item> attributes) {
         List<Menu> menus = restaurant.getMenus();
         if (menus != null && !menus.isEmpty()) {
             for (Menu menu : menus) {
-                attributes.add(new CondensedProperty(menu.getName(), this::showDialog, R.drawable.baseline_chevron_right_24));
+                attributes.add(new CondensedItem(menu.getName(), this::showDialog, R.drawable.baseline_chevron_right_24));
             }
         } else {
-            attributes.add(new ConfigurableProperty("Menus", "No menus available", R.drawable.baseline_add_24, "New", this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.menus_title), context.getResources().getString(R.string.no_menus_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 
     private void showDialog(View view) {
         new AlertDialog.Builder(view.getContext())
-                .setTitle("Not Available")
-                .setMessage("This feature is not implemented yet!")
-                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
+                .setTitle(R.string.not_available_title)
+                .setMessage(R.string.feature_not_implemented_message)
+                .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 

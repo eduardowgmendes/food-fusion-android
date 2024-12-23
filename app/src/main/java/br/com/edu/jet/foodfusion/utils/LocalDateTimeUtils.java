@@ -18,7 +18,16 @@ public class LocalDateTimeUtils {
 
     public static String toFriendlyLocalDateTime(String localDateTime) {
         if (localDateTime != null) {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy - HH:mm", Locale.getDefault());
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EE, dd MMM yyyy - HH:mm", Locale.getDefault());
+            LocalDateTime dateTime = LocalDateTime.parse(localDateTime);
+            return dateTime.format(dateTimeFormatter);
+        }
+        return null;
+    }
+
+    public static String toDefaultLocalDateTime(String localDateTime) {
+        if (localDateTime != null) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy- HH:mm", Locale.getDefault());
             LocalDateTime dateTime = LocalDateTime.parse(localDateTime);
             return dateTime.format(dateTimeFormatter);
         }

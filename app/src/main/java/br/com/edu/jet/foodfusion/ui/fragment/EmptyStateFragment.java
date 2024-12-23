@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.edu.jet.foodfusion.R;
-import br.com.edu.jet.foodfusion.ui.component.content.emptystate.EmptyState;
+import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 
 public class EmptyStateFragment extends Fragment {
 

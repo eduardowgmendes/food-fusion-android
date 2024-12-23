@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import br.com.edu.jet.foodfusion.R;
-import br.com.edu.jet.foodfusion.ui.component.content.emptystate.EmptyState;
+import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 import br.com.edu.jet.foodfusion.ui.fragment.EmptyStateFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.LoaderFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.RestaurantListFragment;
@@ -42,12 +42,12 @@ public class MainActivity extends BaseActivity {
         restaurantViewModel.getAll().observe(this, restaurants -> {
             if (restaurants != null) {
                 if (restaurants.isEmpty()) {
-                    replace(R.id.main_content, EmptyStateFragment.newInstance(new EmptyState(R.drawable.baseline_add_circle_24, "Oww, such empty!", "Add some restaurant by pressing Add +")));
+                    replace(R.id.main_content, EmptyStateFragment.newInstance(new EmptyState(R.drawable.not_found_empty_state, "Oww, such empty!", "Add some restaurant by pressing Add +")));
                 } else {
                     replace(R.id.main_content, RestaurantListFragment.newInstance(restaurants));
                 }
             } else {
-                replace(R.id.main_content, EmptyStateFragment.newInstance(new EmptyState(R.drawable.baseline_error_24, "Oops! Something went wrong!", "Failed to request data to server.")));
+                replace(R.id.main_content, EmptyStateFragment.newInstance(new EmptyState(R.drawable.unknown_error_empty_state, "Oops! Something went wrong!", "Failed to request data to server.")));
             }
         });
     }

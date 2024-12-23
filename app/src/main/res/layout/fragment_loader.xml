@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/loading_hint"
+            android:text="@string/loading_something_hint"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceCaption" />
 

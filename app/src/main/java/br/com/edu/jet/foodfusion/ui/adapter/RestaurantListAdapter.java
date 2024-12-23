@@ -9,11 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.io.Serializable;
 import java.util.List;
 
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
+import br.com.edu.jet.foodfusion.utils.LocalDateTimeUtils;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.RestaurantViewHolder> {
 
@@ -59,8 +62,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         private final ImageView profilePicture;
         private final TextView name;
-        private final TextView description;
-        private final TextView type;
+        private final TextView establishmentType;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,14 +72,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
             this.profilePicture = itemView.findViewById(R.id.restaurant_profile_picture);
             this.name = itemView.findViewById(R.id.restaurant_name);
-            this.description = itemView.findViewById(R.id.restaurant_description);
-            this.type = itemView.findViewById(R.id.restaurant_type);
+            this.establishmentType = itemView.findViewById(R.id.establishment_type);
         }
 
         public void bind(Restaurant restaurant) {
             name.setText(restaurant.getName());
-            description.setText(restaurant.getDescription());
-            type.setText(restaurant.getType().getDescription());
         }
     }
 }
