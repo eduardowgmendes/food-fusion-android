@@ -62,7 +62,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         private final ImageView profilePicture;
         private final TextView name;
-        private final TextView establishmentType;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,11 +71,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
             this.profilePicture = itemView.findViewById(R.id.restaurant_profile_picture);
             this.name = itemView.findViewById(R.id.restaurant_name);
-            this.establishmentType = itemView.findViewById(R.id.establishment_type);
         }
 
         public void bind(Restaurant restaurant) {
             name.setText(restaurant.getName());
+
         }
     }
 }

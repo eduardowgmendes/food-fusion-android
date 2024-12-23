@@ -43,4 +43,16 @@
     <string name="menus_message">Crie, organize e atualize os menus e itens do restaurante.</string>
     <string name="contact_message">Cadastre e mantenha os números de telefone de contato do restaurante.</string>
     <string name="location_message">Adicione e gerencie os detalhes de localização do restaurante para os clientes.</string>
+    <string name="no_data">Nenhum</string>
+    <string name="establishment_type_restaurant">Restaurante</string>
+    <string name="see_something_button_hint">Ver</string>
+    <string name="server_is_unreachable_title">Servidor Inacessível</string>
+    <string name="server_is_unreachable_message">Não foi possível conectar ao servidor. Por favor, tente novamente mais tarde.</string>
+    <string name="data_not_available_title">Dados Indisponíveis</string>
+    <string name="data_not_available_message">Algo deu errado durante o carregamento. Deslize para baixo para atualizar.</string>
+    <string name="no_items_found_title">Nenhum Item Encontrado</string>
+    <string name="no_items_found_message">Parece que ainda não há nada aqui. Volte mais tarde!</string>
+    <string name="location_unavailable_title">Localização Indisponível</string>
+    <string name="location_unavailable_message">Não conseguimos acessar sua localização. Por favor, habilite nas configurações.</string>
+
 </resources>

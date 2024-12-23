@@ -12,6 +12,7 @@ import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 import br.com.edu.jet.foodfusion.ui.fragment.EmptyStateFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.LoaderFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.RestaurantListFragment;
+import br.com.edu.jet.foodfusion.ui.utils.EmptyStateRepository;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
 
 
@@ -19,6 +20,8 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RestaurantViewModel restaurantViewModel;
+
+    private EmptyStateRepository emptyStateRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class MainActivity extends BaseActivity {
             return insets;
         });
 
+        emptyStateRepository = new EmptyStateRepository(getResources());
         restaurantViewModel = new ViewModelProvider(this).get(RestaurantViewModel.class);
 
         setSupportActionBar(findViewById(R.id.main_toolbar));
@@ -42,12 +46,12 @@ public class MainActivity extends BaseActivity {
         restaurantViewModel.getAll().observe(this, restaurants -> {
             if (restaurants != null) {
                 if (restaurants.isEmpty()) {
-                    replace(R.id.main_content, EmptyStateFragment.newInstance(new EmptyState(R.drawable.not_found_empty_state, "Oww, such empty!", "Add some restaurant by pressing Add +")));
+                    replace(R.id.main_content, EmptyStateFragment.newInstance(emptyStateRepository.emptyListIssue()));
                 } else {
                     replace(R.id.main_content, RestaurantListFragment.newInstance(restaurants));
                 }
             } else {
-                replace(R.id.main_content, EmptyStateFragment.newInstance(new EmptyState(R.drawable.unknown_error_empty_state, "Oops! Something went wrong!", "Failed to request data to server.")));
+                replace(R.id.main_content, EmptyStateFragment.newInstance(emptyStateRepository.serverIssue()));
             }
         });
     }

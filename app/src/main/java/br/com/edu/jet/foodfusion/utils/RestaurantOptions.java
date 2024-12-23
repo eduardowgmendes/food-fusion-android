@@ -86,11 +86,11 @@ public class RestaurantOptions {
     private void composeManagementDates(Restaurant restaurant, List<Item> attributes) {
         LocalDateTime createdAt = restaurant.getCreatedAt();
         if (createdAt != null)
-            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.created_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getCreatedAt().toString()), R.drawable.baseline_access_time_24, context.getResources().getString(R.string.timeline_button_hint), this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.created_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getCreatedAt().toString()), R.drawable.baseline_access_time_24, context.getResources().getString(R.string.see_something_button_hint), this::showDialog));
 
         LocalDateTime updatedAt = restaurant.getUpdatedAt();
         if (updatedAt != null)
-            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.updated_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getUpdatedAt().toString()), R.drawable.baseline_access_time_24, context.getResources().getString(R.string.timeline_button_hint), this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.updated_at_title), LocalDateTimeUtils.toFriendlyLocalDateTime(restaurant.getUpdatedAt().toString()), R.drawable.baseline_access_time_24, context.getResources().getString(R.string.see_something_button_hint), this::showDialog));
 
         LocalDateTime deletedAt = restaurant.getDeletedAt();
         if (deletedAt != null)
@@ -102,7 +102,7 @@ public class RestaurantOptions {
         if (logo != null)
             attributes.add(new BasicItem(context.getResources().getString(R.string.logo_title), restaurant.getLogo()));
         else
-            attributes.add(new MessageItem(R.drawable.baseline_error_24, context.getResources().getString(R.string.logos_title), context.getResources().getString(R.string.no_logo_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.add_something_button_hint), this::showDialog));
+            attributes.add(new MessageItem(R.drawable.baseline_error_24, context.getResources().getString(R.string.logo_title), context.getResources().getString(R.string.no_logo_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.add_something_button_hint), this::showDialog));
 
         attributes.add(BasicItem.create(context.getResources().getString(R.string.name_label), restaurant.getName()));
         attributes.add(BasicItem.create(context.getResources().getString(R.string.description_label), restaurant.getDescription()));
@@ -116,18 +116,19 @@ public class RestaurantOptions {
                 attributes.add(new BasicItem(context.getResources().getString(R.string.address_title), address.full()));
             }
         } else {
-            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.addresses_title), context.getResources().getString(R.string.no_addresses_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.addresses_title), context.getResources().getString(R.string.no_data), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 
     private void composePhones(Restaurant restaurant, List<Item> attributes) {
         List<Phone> phones = restaurant.getPhones();
+        attributes.add(ConfigurableItem.create("E-mails", context.getResources().getString(R.string.no_data), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         if (phones != null && !phones.isEmpty()) {
             for (Phone phone : phones) {
                 attributes.add(new BasicItem(context.getResources().getString(R.string.phone_title), String.format("(%s) %s", phone.getPrefix(), phone.getPhoneNumber())));
             }
         } else {
-            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.phones_title), context.getResources().getString(R.string.no_phones_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.phones_title), context.getResources().getString(R.string.no_data), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 
@@ -138,7 +139,7 @@ public class RestaurantOptions {
                 attributes.add(new CondensedItem(menu.getName(), this::showDialog, R.drawable.baseline_chevron_right_24));
             }
         } else {
-            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.menus_title), context.getResources().getString(R.string.no_menus_available_message), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
+            attributes.add(new ConfigurableItem(context.getResources().getString(R.string.menus_title), context.getResources().getString(R.string.no_data), R.drawable.baseline_add_24, context.getResources().getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 

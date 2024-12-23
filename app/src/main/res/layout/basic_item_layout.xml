@@ -19,7 +19,7 @@
         android:maxLines="3"
         android:text="Name"
         android:textAppearance="?attr/textAppearanceBody2"
-        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textColor="?attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/item_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
