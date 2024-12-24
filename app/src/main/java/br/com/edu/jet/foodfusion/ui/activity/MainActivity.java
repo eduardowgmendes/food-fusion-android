@@ -1,11 +1,14 @@
 package br.com.edu.jet.foodfusion.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
@@ -39,6 +42,9 @@ public class MainActivity extends BaseActivity {
 
         setSupportActionBar(findViewById(R.id.main_toolbar));
         configureRestaurantsList();
+
+        FloatingActionButton createNewButton = findViewById(R.id.create_new_restaurant_button);
+        createNewButton.setOnClickListener(v -> openActivity(MainActivity.this, CreateRestaurantActivity.class));
     }
 
     private void configureRestaurantsList() {

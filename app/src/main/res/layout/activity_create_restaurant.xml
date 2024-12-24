@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.CreateRestaurantActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/create_new_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/create_something_button_hint" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:contentPadding="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/logo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@+id/restaurant_name_text_input"
+                        android:maxLines="1"
+                        android:text="@string/logo_title"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="?attr/materialCardViewFilledStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/logo_label">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="8dp"
+                                android:src="@drawable/outline_upload_file_24"
+                                app:layout_constraintBottom_toTopOf="@+id/upload_image_message"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="?attr/colorOnSurfaceVariant" />
+
+                            <TextView
+                                android:id="@+id/upload_image_message"
+                                android:layout_width="164dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp"
+                                android:maxLines="3"
+                                android:text="@string/upload_logo_message_hint"
+                                android:textAlignment="center"
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:contentPadding="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@+id/restaurant_name_text_input"
+                        android:maxLines="1"
+                        android:text="General"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/restaurant_name_text_input"
+                        style="?attr/textInputOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:hint="@string/name_label"
+                        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        style="?attr/textInputOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:hint="@string/description_label"
+                        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/restaurant_name_text_input">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"
+                            android:gravity="start"
+                            android:maxLength="255" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout2"
+                        style="?attr/textInputOutlinedExposedDropdownMenuStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="@string/type_label"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            app:simpleItems="@array/cuisine_types" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        style="?attr/materialButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:text="@string/save_button_hint"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

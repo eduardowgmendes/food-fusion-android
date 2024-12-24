@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="cuisine_types">
+        <item name="italian">ITALIAN</item>
+        <item name="japanese">JAPANESE</item>
+        <item name="thai">THAI</item>
+        <item name="chinese">CHINESE</item>
+        <item name="mexican">MEXICAN</item>
+        <item name="indian">INDIAN</item>
+        <item name="american">AMERICAN</item>
+        <item name="french">FRENCH</item>
+        <item name="brazilian">BRAZILIAN</item>
+        <item name="mediterranean">MEDITERRANEAN</item>
+        <item name="spanish">SPANISH</item>
+        <item name="greek">GREEK</item>
+        <item name="korean">KOREAN</item>
+        <item name="vietnamese">VIETNAMESE</item>
+        <item name="turkish">TURKISH</item>
+        <item name="arabic">ARABIC</item>
+    </array>
+</resources>

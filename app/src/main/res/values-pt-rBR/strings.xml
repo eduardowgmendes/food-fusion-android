@@ -60,4 +60,7 @@
     <!-- Tabs -->
     <string name="profile">Perfil</string>
     <string name="menus">Cardápios</string>
+    <string name="upload_logo_message_hint">Toque aqui para selecionar o logotipo do Restaurante</string>
+    <string name="new_restaurant">Novo Restaurante</string>
+    <string name="save_button_hint">Salvar</string>
 </resources>

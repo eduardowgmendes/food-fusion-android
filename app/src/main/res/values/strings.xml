@@ -62,5 +62,8 @@
     <!-- Tabs -->
     <string name="profile">Profile</string>
     <string name="menus">Menus</string>
+    <string name="upload_logo_message_hint">Tap here to upload your restaurant\'s logo</string>
+    <string name="new_restaurant">New Restaurant</string>
+    <string name="save_button_hint">Save</string>
 
 </resources>
