@@ -20,16 +20,20 @@ import br.com.edu.jet.foodfusion.ui.model.restaurant.address.Address;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.menu.Menu;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.phone.Phone;
 
-public class RestaurantOptions {
+public class RestaurantSettingsComposer {
 
     private final Context context;
     private final Restaurant restaurant;
 
-    public RestaurantOptions(Context context, Restaurant restaurant) {
+    public RestaurantSettingsComposer(Context context, Restaurant restaurant) {
         this.context = context;
         this.restaurant = restaurant;
         if (context != null)
             ResourceUtils.init(context);
+    }
+
+    public List<Item> getAll() {
+        return composeFrom(restaurant);
     }
 
     public List<Item> getGeneralInfo() {
@@ -63,11 +67,7 @@ public class RestaurantOptions {
         return properties;
     }
 
-    public List<Item> getAll() {
-        return attributesOf(restaurant);
-    }
-
-    private List<Item> attributesOf(Restaurant restaurant) {
+    private List<Item> composeFrom(Restaurant restaurant) {
         if (restaurant != null) {
             List<Item> attributes = new ArrayList<>();
             attributes.add(new BasicItem("Id", String.valueOf(restaurant.getId())));
