@@ -60,7 +60,24 @@
     <!-- Tabs -->
     <string name="profile">Perfil</string>
     <string name="menus">Cardápios</string>
-    <string name="upload_logo_message_hint">Toque aqui para selecionar o logotipo do Restaurante</string>
+    <string name="upload_logo_message_hint">Upload do Logo do Restaurant (JPG, PNG ou SVG)</string>
     <string name="new_restaurant">Novo Restaurante</string>
     <string name="save_button_hint">Salvar</string>
+    <string name="reload_something_button_hint">Recarregar</string>
+    <string name="logo_upload_message">Solte a criatividade! Envie aqui o logo que vai representar o estilo único do seu restaurante. — o importante é brilhar!</string>
+    <string name="general_info_message">Vamos dar vida ao seu restaurante! Preencha aqui as informações gerais como o nome, o tipo e uma descrição que mostre a essência do seu negócio.</string>
+    <string name="restaurant_created_successfully_title">Restaurante Criado com Sucesso</string>
+    <string name="restaurant_created_successfully_message">Seu restaurante foi criado e já está pronto para ser gerenciado.</string>
+    <string name="restaurant_creation_failed_title">Erro na Criação do Restaurante</string>
+    <string name="restaurant_creation_failed_message">Algo deu errado durante o processo de criação. Verifique os dados preenchidos e tente novamente.</string>
+    <string name="name_is_required_message">O nome do restaurante é mandatório</string>
+    <string name="cuisine_type_is_required_message">O tipo do restaurante é mandatório</string>
+    <string name="confirm_delete_title">Confirmar Exclusão</string>
+    <string name="confirm_delete_message">Tem certeza de que deseja excluir este restaurante?</string>
+    <string name="delete">Excluir</string>
+    <string name="cancel">Cancelar</string>
+    <string name="edit">Editar</string>
+    <string name="delete_menu_hint">Deletar</string>
+    <string name="context_menu_title">Selecione uma ação</string>
+    <string name="edit_restaurant">Editar Restaurante</string>
 </resources>

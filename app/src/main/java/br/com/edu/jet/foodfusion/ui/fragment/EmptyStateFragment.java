@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
+
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 
@@ -53,6 +55,16 @@ public class EmptyStateFragment extends Fragment {
 
         TextView description = rootLayout.findViewById(R.id.empty_state_message_description);
         description.setText(emptyState.getDescription());
+
+        MaterialButton actionButton = rootLayout.findViewById(R.id.empty_state_action_button);
+
+        if (emptyState.getOnClickListener() != null) {
+            actionButton.setOnClickListener(emptyState.getOnClickListener());
+            actionButton.setText(emptyState.getActionLabel());
+            actionButton.setIconResource(emptyState.getActionIconRes());
+        } else {
+            actionButton.setVisibility(View.GONE);
+        }
 
         return rootLayout;
     }

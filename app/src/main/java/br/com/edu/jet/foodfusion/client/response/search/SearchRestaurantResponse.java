@@ -1,4 +1,4 @@
-package br.com.edu.jet.foodfusion.client.response;
+package br.com.edu.jet.foodfusion.client.response.search;
 
 import com.google.gson.annotations.SerializedName;
 

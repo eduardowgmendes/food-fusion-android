@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import br.com.edu.jet.foodfusion.client.repository.RestaurantRepository;
+import br.com.edu.jet.foodfusion.client.request.CreateRestaurantRequest;
+import br.com.edu.jet.foodfusion.client.shared.dto.restaurant.RestaurantDTO;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 
 public class RestaurantViewModel extends ViewModel {
@@ -22,6 +24,14 @@ public class RestaurantViewModel extends ViewModel {
 
     public LiveData<Restaurant> getById(long restaurantId) {
         return restaurantRepository.getById(restaurantId);
+    }
+
+    public LiveData<Restaurant> create(Restaurant restaurant) {
+        return restaurantRepository.create(restaurant);
+    }
+
+    public LiveData<Long> deleteById(long restaurantId) {
+        return restaurantRepository.deleteById(restaurantId);
     }
 
 }

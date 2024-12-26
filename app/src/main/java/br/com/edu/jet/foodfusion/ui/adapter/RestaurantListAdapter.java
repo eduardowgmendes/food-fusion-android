@@ -28,6 +28,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     public interface OnItemClickListener extends Serializable {
         void onItemClick(int position);
+
+        void onItemLongClick(int position);
     }
 
     public RestaurantListAdapter(List<Restaurant> restaurants) {
@@ -66,8 +68,13 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            if (onItemClickListener != null)
+            if (onItemClickListener != null) {
                 itemView.setOnClickListener(v -> onItemClickListener.onItemClick(getAdapterPosition()));
+                itemView.setOnLongClickListener(v -> {
+                    onItemClickListener.onItemLongClick(getAdapterPosition());
+                    return true;
+                });
+            }
 
             this.profilePicture = itemView.findViewById(R.id.restaurant_profile_picture);
             this.name = itemView.findViewById(R.id.restaurant_name);
@@ -75,7 +82,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         public void bind(Restaurant restaurant) {
             name.setText(restaurant.getName());
-
         }
     }
 }

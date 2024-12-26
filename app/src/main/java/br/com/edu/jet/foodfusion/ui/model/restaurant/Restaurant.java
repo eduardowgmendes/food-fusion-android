@@ -43,11 +43,19 @@ public class Restaurant implements Parcelable {
         addresses = in.readArrayList(Address.class.getClassLoader(), Address.class);
         phones = in.readArrayList(Phone.class.getClassLoader(), Phone.class);
         menus = in.readArrayList(Menu.class.getClassLoader(), Menu.class);
-        createdAt = in.readString() != null ? LocalDateTime.parse(in.readString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
-        updatedAt = in.readString() != null ? LocalDateTime.parse(in.readString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
-        deletedAt = in.readString() != null ? LocalDateTime.parse(in.readString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
+
+        String createdAtString = in.readString();
+        createdAt = createdAtString != null ? LocalDateTime.parse(createdAtString, DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
+
+        String updatedAtString = in.readString();
+        updatedAt = updatedAtString != null ? LocalDateTime.parse(updatedAtString, DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
+
+        String deletedAtString = in.readString();
+        deletedAt = deletedAtString != null ? LocalDateTime.parse(deletedAtString, DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
+
         isDeleted = in.readByte() != 0;
     }
+
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
         @Override
@@ -200,12 +208,16 @@ public class Restaurant implements Parcelable {
         dest.writeString(description);
         dest.writeString(logo);
         dest.writeString(type.name());
-        dest.writeList(addresses);
-        dest.writeList(phones);
-        dest.writeList(menus);
+
+        dest.writeList(addresses != null ? addresses : new ArrayList<>());
+        dest.writeList(phones != null ? phones : new ArrayList<>());
+        dest.writeList(menus != null ? menus : new ArrayList<>());
+
         dest.writeString(createdAt != null ? createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
         dest.writeString(updatedAt != null ? updatedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
         dest.writeString(deletedAt != null ? deletedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
+
         dest.writeByte((byte) (isDeleted ? 1 : 0));
     }
+
 }
