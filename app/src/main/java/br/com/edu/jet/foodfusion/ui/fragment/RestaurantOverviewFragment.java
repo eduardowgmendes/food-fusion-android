@@ -14,7 +14,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.component.section.DefaultSection;
@@ -22,7 +21,7 @@ import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
 import br.com.edu.jet.foodfusion.ui.fragment.adapter.OverviewAdapter;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.utils.ResourceUtils;
-import br.com.edu.jet.foodfusion.utils.RestaurantOptions;
+import br.com.edu.jet.foodfusion.utils.RestaurantSettingsComposer;
 
 public class RestaurantOverviewFragment extends Fragment {
 
@@ -50,7 +49,7 @@ public class RestaurantOverviewFragment extends Fragment {
         }
     }
 
-    private final RestaurantOptions restaurantOptions = new RestaurantOptions(getContext(), restaurant);
+    private final RestaurantSettingsComposer restaurantSettingsComposer = new RestaurantSettingsComposer(getContext(), restaurant);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,26 +90,26 @@ public class RestaurantOverviewFragment extends Fragment {
 
     private List<DefaultSection> addresses() {
         List<DefaultSection> sections = new ArrayList<>();
-        sections.add(createSection(ResourceUtils.getString(R.string.location_title), ResourceUtils.getString(R.string.location_message), restaurantOptions.getAddresses()));
+        sections.add(createSection(ResourceUtils.getString(R.string.location_title), ResourceUtils.getString(R.string.location_message), restaurantSettingsComposer.getAddresses()));
         return sections;
     }
 
     private List<DefaultSection> phones() {
         List<DefaultSection> sections = new ArrayList<>();
-        sections.add(createSection(ResourceUtils.getString(R.string.contact_title), ResourceUtils.getString(R.string.contact_message), restaurantOptions.getPhones()));
+        sections.add(createSection(ResourceUtils.getString(R.string.contact_title), ResourceUtils.getString(R.string.contact_message), restaurantSettingsComposer.getPhones()));
         return sections;
     }
 
     private List<DefaultSection> menus() {
         List<DefaultSection> sections = new ArrayList<>();
-        sections.add(createSection(ResourceUtils.getString(R.string.menus_title), ResourceUtils.getString(R.string.menus_message), restaurantOptions.getMenus()));
+        sections.add(createSection(ResourceUtils.getString(R.string.menus_title), ResourceUtils.getString(R.string.menus_message), restaurantSettingsComposer.getMenus()));
         return sections;
     }
 
     private List<DefaultSection> generalInfo() {
         List<DefaultSection> sections = new ArrayList<>();
-        RestaurantOptions restaurantOptions = new RestaurantOptions(getContext(), restaurant);
-        sections.add(createSection(ResourceUtils.getString(R.string.establishment_title), ResourceUtils.getString(R.string.establishment_message), restaurantOptions.getGeneralInfo()));
+        RestaurantSettingsComposer restaurantSettingsComposer = new RestaurantSettingsComposer(getContext(), restaurant);
+        sections.add(createSection(ResourceUtils.getString(R.string.establishment_title), ResourceUtils.getString(R.string.establishment_message), restaurantSettingsComposer.getGeneralInfo()));
         return sections;
     }
 

@@ -16,10 +16,7 @@ import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.adapter.SectionsAdapter;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.section.DefaultSectionViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.component.section.DefaultSection;
-import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
 import br.com.edu.jet.foodfusion.ui.component.section.enums.SectionType;
-import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
-import br.com.edu.jet.foodfusion.utils.RestaurantOptions;
 
 public class RestaurantSettingsFragment extends Fragment {
 

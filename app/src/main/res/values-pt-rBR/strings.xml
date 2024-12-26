@@ -12,7 +12,7 @@
     <string name="connection_issue_message">Você está offline. Cheque sua conexão e tente novamente.</string>
     <string name="general_issue_title">Oops! Algo Deu Errado</string>
     <string name="general_issue_message">Tivemos um problema técnico. Tente novamente ou reinicie a aplicação.</string>
-    <string name="server_issue_title">Servido Fora de Alcance</string>
+    <string name="server_issue_title">Servidor Fora de Alcance</string>
     <string name="server_issue_message">Não foi possível se conectar ao servidor. Por favor, tente novamente.</string>
     <string name="data_fetching_issue_title">Falha ao Buscar os Dados</string>
     <string name="data_fetching_issue_message">Não foi possível se conectar ao servidor. Por favor, tente novamente.</string>
