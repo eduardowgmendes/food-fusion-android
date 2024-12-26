@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.activity.CreateRestaurantActivity;
+import br.com.edu.jet.foodfusion.ui.activity.MainActivity;
 import br.com.edu.jet.foodfusion.ui.activity.OverviewActivity;
 import br.com.edu.jet.foodfusion.ui.adapter.RestaurantListAdapter;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
@@ -32,6 +34,7 @@ public class RestaurantListFragment extends Fragment {
     public static final String TAG = RestaurantListFragment.class.getSimpleName();
 
     private List<Restaurant> restaurants;
+    private RestaurantViewModel restaurantViewModel;
 
     public RestaurantListFragment() {
         // Required empty public constructor
@@ -53,13 +56,9 @@ public class RestaurantListFragment extends Fragment {
         }
     }
 
-    private RestaurantViewModel restaurantViewModel;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        restaurantViewModel = new ViewModelProvider(getActivity()).get(RestaurantViewModel.class);
 
         RestaurantListAdapter restaurantListAdapter = new RestaurantListAdapter(restaurants);
         restaurantListAdapter.setOnItemClickListener(new RestaurantListAdapter.OnItemClickListener() {
@@ -83,6 +82,10 @@ public class RestaurantListFragment extends Fragment {
         list.setAdapter(restaurantListAdapter);
 
         return list;
+    }
+
+    public void setRestaurantViewModel(RestaurantViewModel restaurantViewModel) {
+        this.restaurantViewModel = restaurantViewModel;
     }
 
     private void showFullScreenContextMenu(int position, long restaurantId) {
@@ -119,6 +122,7 @@ public class RestaurantListFragment extends Fragment {
                 .setMessage(R.string.confirm_delete_message)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     restaurantViewModel.deleteById(restaurantId);
+                    //TODO - UPDATE MAIN LIST AFTER DELETION
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
@@ -129,4 +133,5 @@ public class RestaurantListFragment extends Fragment {
         intent.putExtra("restaurantId", restaurantId);
         startActivity(intent);
     }
+
 }

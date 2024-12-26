@@ -28,8 +28,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ActivityResultLauncher<Intent> createRestaurantLauncher;
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private RestaurantViewModel restaurantViewModel;
 
+    private RestaurantViewModel restaurantViewModel;
     private EmptyStateRepository emptyStateRepository;
 
     @Override
@@ -62,14 +62,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
-    private void configureRestaurantsList(RestaurantViewModel restaurantViewModel) {
+    public void configureRestaurantsList(RestaurantViewModel restaurantViewModel) {
         replace(R.id.main_content, LoaderFragment.newInstance());
         restaurantViewModel.getAll().observe(this, restaurants -> {
             if (restaurants != null) {
                 if (restaurants.isEmpty()) {
                     replace(R.id.main_content, EmptyStateFragment.newInstance(emptyStateRepository.emptyListIssue()));
                 } else {
-                    replace(R.id.main_content, RestaurantListFragment.newInstance(restaurants));
+                    RestaurantListFragment restaurantListFragment = RestaurantListFragment.newInstance(restaurants);
+                    restaurantListFragment.setRestaurantViewModel(restaurantViewModel);
+                    replace(R.id.main_content, restaurantListFragment);
                 }
             } else {
                 replace(R.id.main_content, EmptyStateFragment.newInstance(emptyStateRepository.serverIssue(R.drawable.baseline_downloading_24, getString(R.string.reload_something_button_hint), this)));
