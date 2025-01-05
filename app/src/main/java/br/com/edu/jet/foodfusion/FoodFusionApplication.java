@@ -32,7 +32,7 @@ public class FoodFusionApplication extends Application {
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.160:8080/api/v1/")
+                .baseUrl("http://192.168.3.100:8080/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

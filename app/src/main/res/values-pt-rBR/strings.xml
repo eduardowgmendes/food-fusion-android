@@ -80,4 +80,34 @@
     <string name="delete_menu_hint">Deletar</string>
     <string name="context_menu_title">Selecione uma ação</string>
     <string name="edit_restaurant">Editar Restaurante</string>
+    <string name="settings_menu_option">Configurações</string>
+
+    <string name="finance_title">Financeiro</string>
+    <string name="finance_description">Monitore os principais indicadores financeiros do seu negócio, como receitas, despesas e rentabilidade, para garantir uma gestão eficiente e lucrativa.</string>
+    <string name="operational_title">Operacional</string>
+    <string name="operational_message">Acompanhe métricas operacionais que impactam a eficiência e a produtividade da sua empresa, otimizando processos e recursos.</string>
+    <string name="clients_title">Clientes</string>
+    <string name="clients_message">Analise o comportamento e a satisfação dos seus clientes, impulsionando retenção, aquisição e engajamento.</string>
+    <string name="others_title">Outras</string>
+    <string name="others_message">Outras métricas e informações relevantes para o gerenciamento e tomada de decisão estratégica do seu negócio.</string>
+    <string name="average_check_title">Ticket Médio</string>
+    <string name="profit_margin_title">Margem de Lucro</string>
+    <string name="net_profit_title">Custo de Mercadorias Vendidas (CMV)</string>
+    <string name="revenue_per_customer">Receita por Cliente</string>
+    <string name="return_of_investment_title">Retorno sobre o Investimento (ROI)</string>
+    <string name="occupancy_rate_title">Taxa de Ocupação</string>
+    <string name="service_time_title">Tempo de Serviço</string>
+    <string name="kitchen_efficiency_title">Eficiência da Cozinha</string>
+    <string name="inventory_turnover_title">Giro de Estoque</string>
+    <string name="food_waste_title">Desperdício de Alimentos</string>
+    <string name="energy_efficiency_title">Eficiência Energética</string>
+    <string name="digital_marketing_title">Marketing Digital</string>
+    <string name="net_promoter_score_title">Pontuação Líquida do Promotor (NPS)</string>
+    <string name="customer_retention_rate_title">Taxa de Retenção de Clientes</string>
+    <string name="customer_acquisition_rate_title">Taxa de Aquisição de Clientes</string>
+    <string name="churn_rate_title">Taxa de Cancelamento</string>
+    <string name="customer_lifetime_value_title">Valor Vitalício do Cliente</string>
+    <string name="details_title">Detalhes</string>
+
+
 </resources>

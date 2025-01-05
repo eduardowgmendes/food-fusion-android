@@ -83,8 +83,33 @@
     <string name="context_menu_title">Select an action</string>
     <string name="edit_restaurant">Edit Restaurant</string>
     <string name="settings_menu_option">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="finance_title">Finance</string>
+    <string name="finance_description">Track the key financial indicators of your business, such as revenue, expenses, and profitability, to ensure efficient and profitable management.</string>
+    <string name="clients_title">Clients</string>
+    <string name="clients_message">Analyze customer behavior and satisfaction, driving retention, acquisition, and engagement.</string>
+    <string name="operational_title">Operational</string>
+    <string name="operational_message">Monitor operational metrics that impact your company’s efficiency and productivity, optimizing processes and resources.</string>
+    <string name="others_title">Others</string>
+    <string name="others_message">Additional metrics and information relevant to managing and making strategic decisions for your business.</string>
+    <string name="average_check_title">Average Check</string>
+    <string name="profit_margin_title">Profit Margin</string>
+    <string name="net_profit_title">Cost of Goods Sold (COGS)</string>
+    <string name="revenue_per_customer">Revenue per Customer</string>
+    <string name="return_of_investment_title">Return of Investment (ROI)</string>
+    <string name="occupancy_rate_title">Occupancy Rate</string>
+    <string name="service_time_title">Service Time</string>
+    <string name="kitchen_efficiency_title">Kitchen Efficiency</string>
+    <string name="inventory_turnover_title">Inventory Turnover</string>
+    <string name="food_waste_title">Food Waste</string>
+    <string name="energy_efficiency_title">Energy Efficiency</string>
+    <string name="digital_marketing_title">Digital Marketing</string>
+    <string name="net_promoter_score_title">Net Promoter Score (NPS)</string>
+    <string name="customer_retention_rate_title">Taxa de Retorno de Clientes</string>
+    <string name="customer_acquisition_rate_title">Customer Retention Rate</string>
+    <string name="churn_rate_title">Churn Rate</string>
+    <string name="customer_lifetime_value_title">Customer Lifetime Value</string>
+    <string name="details_title">Details</string>
 
 
 </resources>

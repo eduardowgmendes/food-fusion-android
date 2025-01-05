@@ -5,7 +5,7 @@ public enum SectionType {
     DEFAULT_SECTION(0),
     NO_BORDER_SECTION(1),
     SPECIAL_HEADER_SECTION(2),
-    SET_SECTION(3);
+    SET_SECTION(3), SIMPLE_CONDENSED_SECTION(4);
 
     private final int code;
 

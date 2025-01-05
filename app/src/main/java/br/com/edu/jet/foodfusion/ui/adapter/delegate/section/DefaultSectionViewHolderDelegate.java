@@ -18,6 +18,7 @@ import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.ConfigurableItemViewHo
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.ListItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.MessageItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.BasicItemViewHolderDelegate;
+import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.SimpleCondensedItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.component.section.DefaultSection;
 import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
 import br.com.edu.jet.foodfusion.ui.component.section.item.enums.PropertyType;
@@ -67,6 +68,7 @@ public class DefaultSectionViewHolderDelegate implements ViewHolderDelegate<Defa
             adapter.registerDelegate(PropertyType.CONFIGURABLE.getCode(), new ConfigurableItemViewHolderDelegate());
             adapter.registerDelegate(PropertyType.MESSAGE.getCode(), new MessageItemViewHolderDelegate());
             adapter.registerDelegate(PropertyType.CONDENSED.getCode(), new CondensedItemViewHolderDelegate());
+            adapter.registerDelegate(PropertyType.SIMPLE_CONDENSED.getCode(), new SimpleCondensedItemViewHolderDelegate());
 
             sectionItems.setAdapter(adapter);
         }

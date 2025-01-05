@@ -13,6 +13,7 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/restaurant_overview_toolbar"
+            style="@style/Widget.Material3.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/overview_toolbar_title" />

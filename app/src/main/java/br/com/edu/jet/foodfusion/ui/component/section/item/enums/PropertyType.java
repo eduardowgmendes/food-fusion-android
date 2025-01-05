@@ -6,7 +6,8 @@ public enum PropertyType {
     KEY_LIST(1),
     CONFIGURABLE(2),
     MESSAGE(3),
-    CONDENSED(4);
+    CONDENSED(4),
+    SIMPLE_CONDENSED(5);
 
     private final int code;
 
