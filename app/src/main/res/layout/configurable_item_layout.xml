@@ -50,6 +50,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:tooltipText="@string/create_something_button_hint"
         android:layout_marginBottom="8dp"
         android:text="@string/create_something_button_hint"
         app:iconTint="?attr/colorOnSurface"

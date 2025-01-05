@@ -29,6 +29,9 @@ public class RestaurantDTO {
     @SerializedName("logo")
     private String logo;
 
+    @SerializedName("backdrop")
+    private String backdrop;
+
     @SerializedName("addresses")
     private List<AddressDTO> addresses = new ArrayList<>();
 
@@ -88,6 +91,14 @@ public class RestaurantDTO {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
     }
 
     public List<AddressDTO> getAddresses() {
@@ -154,12 +165,12 @@ public class RestaurantDTO {
         if (this == o) return true;
         if (!(o instanceof RestaurantDTO)) return false;
         RestaurantDTO that = (RestaurantDTO) o;
-        return id == that.id && deleted == that.deleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(type, that.type) && Objects.equals(logo, that.logo) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
+        return id == that.id && deleted == that.deleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(type, that.type) && Objects.equals(logo, that.logo) && Objects.equals(backdrop, that.backdrop) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type, logo, addresses, phones, menus, createdAt, updatedAt, deletedAt, deleted);
+        return Objects.hash(id, name, description, type, logo, backdrop, addresses, phones, menus, createdAt, updatedAt, deletedAt, deleted);
     }
 
     @Override
@@ -170,6 +181,7 @@ public class RestaurantDTO {
                 ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
                 ", logo='" + logo + '\'' +
+                ", backdrop='" + backdrop + '\'' +
                 ", addresses=" + addresses +
                 ", phones=" + phones +
                 ", menus=" + menus +

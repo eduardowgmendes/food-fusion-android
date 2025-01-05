@@ -1,6 +1,5 @@
 package br.com.edu.jet.foodfusion.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,14 +17,13 @@ import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.fragment.EmptyStateFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.LoaderFragment;
 import br.com.edu.jet.foodfusion.ui.fragment.RestaurantListFragment;
-import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.ui.utils.EmptyStateRepository;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private ActivityResultLauncher<Intent> createRestaurantLauncher;
+    private ActivityResultLauncher<Intent> restaurantManagementLauncher;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -49,16 +47,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setSupportActionBar(findViewById(R.id.main_toolbar));
         configureRestaurantsList(restaurantViewModel);
 
-        createRestaurantLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == RESULT_OK) {
-                configureRestaurantsList(restaurantViewModel);
+        restaurantManagementLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                boolean isDeleted = result.getData().getBooleanExtra("isDeleted", false);
+                boolean created = result.getData().getBooleanExtra("created", false);
+
+                if (created || isDeleted) {
+                    configureRestaurantsList(restaurantViewModel);
+                }
             }
         });
 
         FloatingActionButton createNewButton = findViewById(R.id.create_new_restaurant_button);
         createNewButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CreateRestaurantActivity.class);
-            createRestaurantLauncher.launch(intent);
+            restaurantManagementLauncher.launch(intent);
         });
     }
 
@@ -71,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     RestaurantListFragment restaurantListFragment = RestaurantListFragment.newInstance(restaurants);
                     restaurantListFragment.setRestaurantViewModel(restaurantViewModel);
+                    restaurantListFragment.setActivityResultLauncher(restaurantManagementLauncher);
                     replace(R.id.main_content, restaurantListFragment);
                 }
             } else {

@@ -111,6 +111,8 @@
     <string name="churn_rate_title">Churn Rate</string>
     <string name="customer_lifetime_value_title">Customer Lifetime Value</string>
     <string name="details_title">Details</string>
-
-
+    <string name="restaurant_status_hint">Restaurant Status</string>
+    <string name="active_hint">Active</string>
+    <string name="erased_hint">Erased</string>
+    <string name="restaurant_message">Your Restaurant is: %s</string>
 </resources>

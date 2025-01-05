@@ -109,6 +109,8 @@
     <string name="customer_lifetime_value_title">Valor Vitalício do Cliente</string>
     <string name="details_title">Detalhes</string>
     <string name="cost_of_goods_sold_title">Custo das Mercadorias Vendidas (CMV)</string>
-
-
+    <string name="restaurant_status_hint">Status do Restaurante</string>
+    <string name="active_hint">Ativo</string>
+    <string name="erased_hint">Apagado</string>
+    <string name="restaurant_message">Seu restaurante está %s</string>
 </resources>

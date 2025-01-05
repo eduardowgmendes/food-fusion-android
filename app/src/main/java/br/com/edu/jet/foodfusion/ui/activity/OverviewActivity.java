@@ -1,6 +1,7 @@
 package br.com.edu.jet.foodfusion.ui.activity;
 
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,30 +11,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.calculation.RestaurantMetricsCalculator;
-import br.com.edu.jet.foodfusion.ui.component.emptystate.EmptyState;
 import br.com.edu.jet.foodfusion.ui.component.section.DefaultSection;
-import br.com.edu.jet.foodfusion.ui.component.section.item.list.BasicItem;
 import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
-import br.com.edu.jet.foodfusion.ui.fragment.DashboardFragment;
-import br.com.edu.jet.foodfusion.ui.fragment.EmptyStateFragment;
-import br.com.edu.jet.foodfusion.ui.fragment.LoaderFragment;
+import br.com.edu.jet.foodfusion.ui.component.section.item.list.SimpleCondensedItem;
 import br.com.edu.jet.foodfusion.ui.fragment.adapter.OverviewAdapter;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.utils.ResourceUtils;
@@ -41,6 +43,8 @@ import br.com.edu.jet.foodfusion.utils.RestaurantSettingsComposer;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
 
 public class OverviewActivity extends BaseActivity {
+
+    private ActivityResultLauncher<Intent> deleteRestaurantLauncher;
 
     private RestaurantViewModel restaurantViewModel;
 
@@ -51,8 +55,12 @@ public class OverviewActivity extends BaseActivity {
     private MaterialButton restaurantStatusButton;
     private TabLayout sectionsTabLayout;
     private ViewPager2 overviewPager;
+    private ImageView restaurantBackdrop;
+    private FloatingActionButton utilityFloatingActionButton;
 
     private RestaurantSettingsComposer restaurantSettingsComposer;
+
+    private List<List<DefaultSection>> allSections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +83,24 @@ public class OverviewActivity extends BaseActivity {
         restaurantName = findViewById(R.id.restaurant_name);
         restaurantDescription = findViewById(R.id.restaurant_description);
 
+        restaurantBackdrop = findViewById(R.id.restaurant_backdrop);
+
         sectionsTabLayout = findViewById(R.id.overview_tab_layout);
         overviewPager = findViewById(R.id.overview_view_pager);
         restaurantStatusButton = findViewById(R.id.restaurant_status_button);
+
+        utilityFloatingActionButton = findViewById(R.id.utility_floating_action_button);
+        utilityFloatingActionButton
+                .animate()
+                .alpha(0)
+                .setDuration(0)
+                .start();
+
+        deleteRestaurantLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                finish();
+            }
+        });
 
         restaurantViewModel = new ViewModelProvider(this).get(RestaurantViewModel.class);
 
@@ -86,20 +109,93 @@ public class OverviewActivity extends BaseActivity {
                 if (restaurant != null) {
                     configureAppBar(restaurant);
                     restaurantSettingsComposer = new RestaurantSettingsComposer(this, restaurant);
-                    overviewPager.setAdapter(new OverviewAdapter(getSupportFragmentManager(), getLifecycle(), allSections(restaurant)));
+                    allSections = allSections(restaurant);
+                    overviewPager.setAdapter(new OverviewAdapter(getSupportFragmentManager(), getLifecycle(), allSections));
                     new TabLayoutMediator(sectionsTabLayout, overviewPager, (tab, position) -> {
                         tab.setText(getSectionTitle(position));
                     }).attach();
 
+                    if (restaurant.getBackdrop() != null) {
+                        Picasso.get()
+                                .load(restaurant.getBackdrop()).fit()
+                                .centerCrop().into(restaurantBackdrop);
+                    } else {
+                        restaurantBackdrop.setImageResource(R.drawable.default_backdrop);
+                    }
+
+                    overviewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                        @Override
+                        public void onPageSelected(int position) {
+                            super.onPageSelected(position);
+                            updateFabPosition(position);
+                        }
+                    });
+
                     restaurantStatusButton.setOnClickListener(v -> new AlertDialog.Builder(OverviewActivity.this)
-                            .setTitle(restaurant.getName())
-                            .setMessage(String.format("Deleted: %s", restaurant.isDeleted()))
+                            .setTitle(restaurant.getName())//TODO - LEMBRAR DESSA GAMBIARRA AQUI: !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint)
+                            .setMessage(String.format(getString(R.string.restaurant_message), !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint)))
                             .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> {
                                 dialog.dismiss();
                             }).show());
                 }
             });
         }
+    }
+
+    private final View.OnClickListener createMenu = v -> new AlertDialog.Builder(OverviewActivity.this)
+            .setTitle(R.string.not_available_title)
+            .setMessage(R.string.feature_not_implemented_message)
+            .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> dialog.dismiss())
+            .show();
+
+    private final View.OnClickListener createAddress = v -> new AlertDialog.Builder(OverviewActivity.this)
+            .setTitle(R.string.not_available_title)
+            .setMessage(R.string.feature_not_implemented_message)
+            .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> dialog.dismiss())
+            .show();
+
+    private final View.OnClickListener createPhone = v -> new AlertDialog.Builder(OverviewActivity.this)
+            .setTitle(R.string.not_available_title)
+            .setMessage(R.string.feature_not_implemented_message)
+            .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> dialog.dismiss())
+            .show();
+
+    private void updateFabPosition(int position) {
+
+        switch (position) {
+            case 0:
+            case 4:
+                hideFab(utilityFloatingActionButton);
+                break;
+            case 1:
+                utilityFloatingActionButton.setOnClickListener(createMenu);
+                showFab(utilityFloatingActionButton);
+                break;
+            case 2:
+                utilityFloatingActionButton.setOnClickListener(createAddress);
+                showFab(utilityFloatingActionButton);
+                break;
+            case 3:
+                utilityFloatingActionButton.setOnClickListener(createPhone);
+                showFab(utilityFloatingActionButton);
+                break;
+        }
+    }
+
+    private void showFab(FloatingActionButton floatingActionButton) {
+        floatingActionButton
+                .animate()
+                .alpha(1)
+                .setDuration(300)
+                .start();
+    }
+
+    private void hideFab(FloatingActionButton floatingActionButton) {
+        floatingActionButton
+                .animate()
+                .alpha(0)
+                .setDuration(300)
+                .start();
     }
 
     private void configureAppBar(Restaurant restaurant) {
@@ -121,6 +217,17 @@ public class OverviewActivity extends BaseActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             Toast.makeText(this, "Entering settings", Toast.LENGTH_SHORT).show();
+        }
+        if (item.getItemId() == R.id.action_restaurant_delete) {
+            restaurantViewModel.deleteById(restaurantId).observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("isDeleted", true);
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                }
+            });
         }
         return super.onOptionsItemSelected(item);
     }
@@ -190,11 +297,11 @@ public class OverviewActivity extends BaseActivity {
         List<DefaultSection> sections = new ArrayList<>();
         RestaurantMetricsCalculator calculator = new RestaurantMetricsCalculator(restaurant);
         List<Item> financeItems = List.of(
-                new BasicItem(getString(R.string.average_check_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.profit_margin_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.revenue_per_customer), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.return_of_investment_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.cost_of_goods_sold_title), String.valueOf(calculator.getAverageCheck()))
+                new SimpleCondensedItem(getString(R.string.average_check_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.profit_margin_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.revenue_per_customer), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.return_of_investment_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.cost_of_goods_sold_title), String.valueOf(calculator.getAverageCheck()))
         );
         sections.add(createSection(getString(R.string.finance_title), getString(R.string.finance_description), financeItems));
         return sections;
@@ -204,11 +311,11 @@ public class OverviewActivity extends BaseActivity {
         List<DefaultSection> sections = new ArrayList<>();
         RestaurantMetricsCalculator calculator = new RestaurantMetricsCalculator(restaurant);
         List<Item> clientsItems = List.of(
-                new BasicItem(getString(R.string.net_promoter_score_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.customer_retention_rate_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.churn_rate_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.customer_lifetime_value_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.average_check_title), String.valueOf(calculator.getAverageCheck()))
+                new SimpleCondensedItem(getString(R.string.net_promoter_score_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.customer_retention_rate_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.churn_rate_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.customer_lifetime_value_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.average_check_title), String.valueOf(calculator.getAverageCheck()))
         );
         sections.add(createSection(getString(R.string.clients_title), getString(R.string.clients_message), clientsItems));
         return sections;
@@ -218,11 +325,11 @@ public class OverviewActivity extends BaseActivity {
         List<DefaultSection> sections = new ArrayList<>();
         RestaurantMetricsCalculator calculator = new RestaurantMetricsCalculator(restaurant);
         List<Item> operationalItems = List.of(
-                new BasicItem(getString(R.string.occupancy_rate_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.inventory_turnover_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.service_time_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.food_waste_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.kitchen_efficiency_title), String.valueOf(calculator.getAverageCheck()))
+                new SimpleCondensedItem(getString(R.string.occupancy_rate_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.inventory_turnover_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.service_time_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.food_waste_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.kitchen_efficiency_title), String.valueOf(calculator.getAverageCheck()))
         );
         sections.add(createSection(getString(R.string.operational_title), getString(R.string.operational_message), operationalItems));
         return sections;
@@ -232,8 +339,8 @@ public class OverviewActivity extends BaseActivity {
         List<DefaultSection> sections = new ArrayList<>();
         RestaurantMetricsCalculator calculator = new RestaurantMetricsCalculator(restaurant);
         List<Item> otherItems = List.of(
-                new BasicItem(getString(R.string.energy_efficiency_title), String.valueOf(calculator.getAverageCheck())),
-                new BasicItem(getString(R.string.digital_marketing_title), String.valueOf(calculator.getAverageCheck()))
+                new SimpleCondensedItem(getString(R.string.energy_efficiency_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.digital_marketing_title), String.valueOf(calculator.getAverageCheck()))
         );
         sections.add(createSection(getString(R.string.others_title), getString(R.string.others_message), otherItems));
         return sections;

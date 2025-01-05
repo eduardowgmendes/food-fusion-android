@@ -3,6 +3,7 @@ package br.com.edu.jet.foodfusion.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -35,6 +36,7 @@ public class RestaurantListFragment extends Fragment {
 
     private List<Restaurant> restaurants;
     private RestaurantViewModel restaurantViewModel;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public RestaurantListFragment() {
         // Required empty public constructor
@@ -68,7 +70,7 @@ public class RestaurantListFragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), OverviewActivity.class);
                 intent.putExtra("restaurantId", restaurantId);
-                startActivity(intent);
+                activityResultLauncher.launch(intent);
             }
 
             @Override
@@ -86,6 +88,10 @@ public class RestaurantListFragment extends Fragment {
 
     public void setRestaurantViewModel(RestaurantViewModel restaurantViewModel) {
         this.restaurantViewModel = restaurantViewModel;
+    }
+
+    public void setActivityResultLauncher(ActivityResultLauncher<Intent> activityResultLauncher) {
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     private void showFullScreenContextMenu(int position, long restaurantId) {

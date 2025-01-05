@@ -23,6 +23,7 @@ public class Restaurant implements Parcelable {
     private String description;
     private CuisineType type;
     private String logo;
+    private String backdrop;
     private List<Address> addresses = new ArrayList<>();
     private List<Phone> phones = new ArrayList<>();
     private List<Menu> menus = new ArrayList<>();
@@ -39,6 +40,7 @@ public class Restaurant implements Parcelable {
         name = in.readString();
         description = in.readString();
         logo = in.readString();
+        backdrop = in.readString();
         type = CuisineType.valueOf(in.readString());
         addresses = in.readArrayList(Address.class.getClassLoader(), Address.class);
         phones = in.readArrayList(Phone.class.getClassLoader(), Phone.class);
@@ -109,6 +111,14 @@ public class Restaurant implements Parcelable {
         this.logo = logo;
     }
 
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
+
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -168,16 +178,17 @@ public class Restaurant implements Parcelable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Restaurant)) return false;
         Restaurant that = (Restaurant) o;
-        return id == that.id && isDeleted == that.isDeleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && type == that.type && Objects.equals(logo, that.logo) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
+        return id == that.id && isDeleted == that.isDeleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && type == that.type && Objects.equals(logo, that.logo) && Objects.equals(backdrop, that.backdrop) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type, logo, addresses, phones, menus, createdAt, updatedAt, deletedAt, isDeleted);
+        return Objects.hash(id, name, description, type, logo, backdrop, addresses, phones, menus, createdAt, updatedAt, deletedAt, isDeleted);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -186,6 +197,7 @@ public class Restaurant implements Parcelable {
                 ", description='" + description + '\'' +
                 ", type=" + type +
                 ", logo='" + logo + '\'' +
+                ", backdrop='" + backdrop + '\'' +
                 ", addresses=" + addresses +
                 ", phones=" + phones +
                 ", menus=" + menus +
@@ -207,6 +219,7 @@ public class Restaurant implements Parcelable {
         dest.writeString(name);
         dest.writeString(description);
         dest.writeString(logo);
+        dest.writeString(backdrop);
         dest.writeString(type.name());
 
         dest.writeList(addresses != null ? addresses : new ArrayList<>());

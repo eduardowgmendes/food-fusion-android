@@ -127,6 +127,7 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                     .setMessage(R.string.restaurant_created_successfully_message)
                     .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> {
                         Intent resultIntent = new Intent();
+                        resultIntent.putExtra("created", true);
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     }).show();
