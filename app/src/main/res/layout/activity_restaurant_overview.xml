@@ -33,8 +33,8 @@
                 android:id="@+id/restaurant_overview_toolbar"
                 style="@style/Widget.Material3.Toolbar.OnSurface"
                 android:layout_width="match_parent"
-                android:fitsSystemWindows="true"
                 android:layout_height="?attr/actionBarSize"
+                android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin"
                 app:title="@string/overview_toolbar_title" />
 
@@ -81,10 +81,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:maxLines="3"
                     android:text="@string/app_name"
                     android:textAppearance="?attr/textAppearanceHeadlineLarge"
                     android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/restaurant_description"
                     app:layout_constraintEnd_toStartOf="@+id/restaurant_status_button"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -100,10 +102,27 @@
                     android:text="@string/app_name"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_type"
                     app:layout_constraintEnd_toStartOf="@+id/restaurant_status_button"
                     app:layout_constraintStart_toStartOf="parent" />
 
+                <TextView
+                    android:id="@+id/restaurant_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:drawablePadding="8dp"
+                    android:maxLines="6"
+                    android:text="Type"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    app:drawableStartCompat="@drawable/round_outlined_flag_16"
+                    app:drawableTint="?attr/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_status_button"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/restaurant_status_button"

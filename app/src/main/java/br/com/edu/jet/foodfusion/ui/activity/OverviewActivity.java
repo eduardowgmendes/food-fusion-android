@@ -51,7 +51,7 @@ public class OverviewActivity extends BaseActivity {
     private long restaurantId;
     private ImageView restaurantLogo;
     private TextView restaurantName;
-    private TextView restaurantDescription;
+    private TextView restaurantDescription, restaurantType;
     private MaterialButton restaurantStatusButton;
     private TabLayout sectionsTabLayout;
     private ViewPager2 overviewPager;
@@ -82,12 +82,14 @@ public class OverviewActivity extends BaseActivity {
         restaurantLogo = findViewById(R.id.restaurant_logo);
         restaurantName = findViewById(R.id.restaurant_name);
         restaurantDescription = findViewById(R.id.restaurant_description);
+        restaurantType = findViewById(R.id.restaurant_type);
 
         restaurantBackdrop = findViewById(R.id.restaurant_backdrop);
 
         sectionsTabLayout = findViewById(R.id.overview_tab_layout);
         overviewPager = findViewById(R.id.overview_view_pager);
         restaurantStatusButton = findViewById(R.id.restaurant_status_button);
+
 
         utilityFloatingActionButton = findViewById(R.id.utility_floating_action_button);
         utilityFloatingActionButton
@@ -119,8 +121,6 @@ public class OverviewActivity extends BaseActivity {
                         Picasso.get()
                                 .load(restaurant.getBackdrop()).fit()
                                 .centerCrop().into(restaurantBackdrop);
-                    } else {
-                        restaurantBackdrop.setImageResource(R.drawable.default_backdrop);
                     }
 
                     overviewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -130,6 +130,8 @@ public class OverviewActivity extends BaseActivity {
                             updateFabPosition(position);
                         }
                     });
+
+                    restaurantType.setText(restaurant.getType().getDescription());
 
                     restaurantStatusButton.setOnClickListener(v -> new AlertDialog.Builder(OverviewActivity.this)
                             .setTitle(restaurant.getName())//TODO - LEMBRAR DESSA GAMBIARRA AQUI: !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint)
