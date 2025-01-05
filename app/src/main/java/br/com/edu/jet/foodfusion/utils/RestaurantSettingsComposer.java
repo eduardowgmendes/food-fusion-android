@@ -17,6 +17,7 @@ import br.com.edu.jet.foodfusion.ui.component.section.item.list.BasicItem;
 import br.com.edu.jet.foodfusion.ui.enums.YesNoEnum;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.address.Address;
+import br.com.edu.jet.foodfusion.ui.model.restaurant.email.Email;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.menu.Menu;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.phone.Phone;
 
@@ -58,6 +59,12 @@ public class RestaurantSettingsComposer {
     public List<Item> getPhones() {
         List<Item> properties = new ArrayList<>();
         composePhones(restaurant, properties);
+        return properties;
+    }
+
+    public List<Item> getEmails() {
+        List<Item> properties = new ArrayList<>();
+        composeEmails(restaurant, properties);
         return properties;
     }
 
@@ -135,7 +142,6 @@ public class RestaurantSettingsComposer {
     private void composePhones(Restaurant restaurant, List<Item> attributes) {
         if (restaurant != null) {
             List<Phone> phones = restaurant.getPhones();
-            attributes.add(ConfigurableItem.create("E-mails", ResourceUtils.getString(R.string.no_data), R.drawable.baseline_add_24, ResourceUtils.getString(R.string.create_something_button_hint), this::showDialog));
             if (phones != null && !phones.isEmpty()) {
                 for (Phone phone : phones) {
                     attributes.add(new BasicItem(ResourceUtils.getString(R.string.phone_title), String.format("(%s) %s", phone.getPrefix(), phone.getPhoneNumber())));
@@ -145,6 +151,21 @@ public class RestaurantSettingsComposer {
             }
         } else {
             attributes.add(new ConfigurableItem(ResourceUtils.getString(R.string.phones_title), ResourceUtils.getString(R.string.no_data), R.drawable.baseline_add_24, ResourceUtils.getString(R.string.create_something_button_hint), this::showDialog));
+        }
+    }
+
+    private void composeEmails(Restaurant restaurant, List<Item> attributes) {
+        if (restaurant != null) {
+            List<Email> emails = restaurant.getEmails();
+            if (emails != null && !emails.isEmpty()) {
+                for (Email email : emails) {
+                    attributes.add(new BasicItem(ResourceUtils.getString(R.string.email_title), email.getEmail()));
+                }
+            } else {
+                attributes.add(new ConfigurableItem(ResourceUtils.getString(R.string.email_title), ResourceUtils.getString(R.string.no_data), R.drawable.baseline_add_24, ResourceUtils.getString(R.string.create_something_button_hint), this::showDialog));
+            }
+        } else {
+            attributes.add(new ConfigurableItem(ResourceUtils.getString(R.string.email_title), ResourceUtils.getString(R.string.no_data), R.drawable.baseline_add_24, ResourceUtils.getString(R.string.create_something_button_hint), this::showDialog));
         }
     }
 

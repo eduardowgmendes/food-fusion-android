@@ -12,6 +12,7 @@ public class RestaurantConverter extends AttributeConverter<RestaurantDTO, Resta
     private final MenuConverter menuConverter = new MenuConverter();
     private final PhoneConverter phoneConverter = new PhoneConverter();
     private final AddressConverter addressConverter = new AddressConverter();
+    private final EmailConverter emailConverter = new EmailConverter();
 
     @Override
     public RestaurantDTO to(Restaurant target) {
@@ -34,6 +35,11 @@ public class RestaurantConverter extends AttributeConverter<RestaurantDTO, Resta
         restaurantDTO.setPhones(target.getPhones()
                 .stream()
                 .map(phoneConverter::to)
+                .collect(Collectors.toList()));
+
+        restaurantDTO.setEmails(target.getEmails()
+                .stream()
+                .map(emailConverter::to)
                 .collect(Collectors.toList()));
 
         LocalDateTime createdAt = target.getCreatedAt();
@@ -70,6 +76,12 @@ public class RestaurantConverter extends AttributeConverter<RestaurantDTO, Resta
         restaurant.setPhones(source.getPhones()
                 .stream()
                 .map(phoneConverter::from)
+                .collect(Collectors.toList()));
+
+        restaurant.setEmails(source
+                .getEmails()
+                .stream()
+                .map(emailConverter::from)
                 .collect(Collectors.toList()));
 
         restaurant.setCreatedAt(source.getCreatedAt());

@@ -115,4 +115,6 @@
     <string name="active_hint">Active</string>
     <string name="erased_hint">Erased</string>
     <string name="restaurant_message">Your Restaurant is: %s</string>
+    <string name="email_title">E-mail</string>
+    <string name="metrics_title">Metrics</string>
 </resources>

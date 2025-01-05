@@ -2,15 +2,18 @@ package br.com.edu.jet.foodfusion.client.shared.dto.restaurant;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import br.com.edu.jet.foodfusion.client.shared.dto.contact.info.AddressDTO;
+import br.com.edu.jet.foodfusion.client.shared.dto.contact.info.EmailDTO;
 import br.com.edu.jet.foodfusion.client.shared.dto.contact.info.PhoneDTO;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.enums.CuisineType;
 import br.com.edu.jet.foodfusion.utils.LocalDateTimeUtils;
+import kotlin.jvm.JvmSerializableLambda;
 
 public class RestaurantDTO {
 
@@ -37,6 +40,9 @@ public class RestaurantDTO {
 
     @SerializedName("phones")
     private List<PhoneDTO> phones = new ArrayList<>();
+
+    @SerializedName("emails")
+    private List<EmailDTO> emails;
 
     @SerializedName("menus")
     private List<MenuDTO> menus = new ArrayList<>();
@@ -125,6 +131,14 @@ public class RestaurantDTO {
         this.menus = menus;
     }
 
+    public List<EmailDTO> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<EmailDTO> emails) {
+        this.emails = emails;
+    }
+
     public LocalDateTime getCreatedAt() {
         if (createdAt == null) return null;
         return LocalDateTimeUtils.getLocalDateTime(createdAt);
@@ -165,12 +179,12 @@ public class RestaurantDTO {
         if (this == o) return true;
         if (!(o instanceof RestaurantDTO)) return false;
         RestaurantDTO that = (RestaurantDTO) o;
-        return id == that.id && deleted == that.deleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(type, that.type) && Objects.equals(logo, that.logo) && Objects.equals(backdrop, that.backdrop) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
+        return id == that.id && deleted == that.deleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(type, that.type) && Objects.equals(logo, that.logo) && Objects.equals(backdrop, that.backdrop) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(emails, that.emails) && Objects.equals(menus, that.menus) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type, logo, backdrop, addresses, phones, menus, createdAt, updatedAt, deletedAt, deleted);
+        return Objects.hash(id, name, description, type, logo, backdrop, addresses, phones, emails, menus, createdAt, updatedAt, deletedAt, deleted);
     }
 
     @Override
@@ -184,6 +198,7 @@ public class RestaurantDTO {
                 ", backdrop='" + backdrop + '\'' +
                 ", addresses=" + addresses +
                 ", phones=" + phones +
+                ", emails=" + emails +
                 ", menus=" + menus +
                 ", createdAt='" + createdAt + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +

@@ -245,15 +245,11 @@ public class OverviewActivity extends BaseActivity {
             case 3:
                 return ResourceUtils.getString(R.string.contacts_title);
             case 4:
-                return ResourceUtils.getString(R.string.finance_title);
+                return ResourceUtils.getString(R.string.email_title);
             case 5:
-                return ResourceUtils.getString(R.string.operational_title);
-            case 6:
-                return ResourceUtils.getString(R.string.clients_title);
-            case 7:
-                return ResourceUtils.getString(R.string.others_title);
+                return ResourceUtils.getString(R.string.metrics_title);
             default:
-                throw new IllegalArgumentException("Invalid position" + position);
+                throw new IllegalArgumentException("Invalid position: " + position);
         }
     }
 
@@ -263,10 +259,8 @@ public class OverviewActivity extends BaseActivity {
         allSections.add(menus());
         allSections.add(addresses());
         allSections.add(phones());
-        allSections.add(finance(restaurant));
-        allSections.add(operational(restaurant));
-        allSections.add(clients(restaurant));
-        allSections.add(others(restaurant));
+        allSections.add(emails());
+        allSections.add(metrics(restaurant));
         return allSections;
     }
 
@@ -282,6 +276,12 @@ public class OverviewActivity extends BaseActivity {
         return sections;
     }
 
+    private List<DefaultSection> emails() {
+        List<DefaultSection> sections = new ArrayList<>();
+        sections.add(createSection(ResourceUtils.getString(R.string.email_title), ResourceUtils.getString(R.string.contact_message), restaurantSettingsComposer.getEmails()));
+        return sections;
+    }
+
     private List<DefaultSection> menus() {
         List<DefaultSection> sections = new ArrayList<>();
         sections.add(createSection(ResourceUtils.getString(R.string.menus_title), ResourceUtils.getString(R.string.menus_message), restaurantSettingsComposer.getMenus()));
@@ -292,6 +292,41 @@ public class OverviewActivity extends BaseActivity {
         List<DefaultSection> sections = new ArrayList<>();
         RestaurantSettingsComposer restaurantSettingsComposer = new RestaurantSettingsComposer(this, restaurant);
         sections.add(createSection(ResourceUtils.getString(R.string.establishment_title), ResourceUtils.getString(R.string.establishment_message), restaurantSettingsComposer.getGeneralInfo()));
+        return sections;
+    }
+
+    private List<DefaultSection> metrics(Restaurant restaurant) {
+        List<DefaultSection> sections = new ArrayList<>();
+        RestaurantMetricsCalculator calculator = new RestaurantMetricsCalculator(restaurant);
+        List<Item> financeItems = List.of(
+                new SimpleCondensedItem(getString(R.string.average_check_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.profit_margin_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.revenue_per_customer), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.return_of_investment_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.cost_of_goods_sold_title), String.valueOf(calculator.getAverageCheck()))
+        );
+        sections.add(createSection(getString(R.string.finance_title), getString(R.string.finance_description), financeItems));
+        List<Item> clientsItems = List.of(
+                new SimpleCondensedItem(getString(R.string.net_promoter_score_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.customer_retention_rate_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.churn_rate_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.customer_lifetime_value_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.average_check_title), String.valueOf(calculator.getAverageCheck()))
+        );
+        sections.add(createSection(getString(R.string.clients_title), getString(R.string.clients_message), clientsItems));
+        List<Item> operationalItems = List.of(
+                new SimpleCondensedItem(getString(R.string.occupancy_rate_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.inventory_turnover_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.service_time_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.food_waste_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.kitchen_efficiency_title), String.valueOf(calculator.getAverageCheck()))
+        );
+        sections.add(createSection(getString(R.string.operational_title), getString(R.string.operational_message), operationalItems));
+        List<Item> otherItems = List.of(
+                new SimpleCondensedItem(getString(R.string.energy_efficiency_title), String.valueOf(calculator.getAverageCheck())),
+                new SimpleCondensedItem(getString(R.string.digital_marketing_title), String.valueOf(calculator.getAverageCheck()))
+        );
+        sections.add(createSection(getString(R.string.others_title), getString(R.string.others_message), otherItems));
         return sections;
     }
 
