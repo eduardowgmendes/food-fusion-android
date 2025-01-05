@@ -105,7 +105,8 @@
     <string name="energy_efficiency_title">Energy Efficiency</string>
     <string name="digital_marketing_title">Digital Marketing</string>
     <string name="net_promoter_score_title">Net Promoter Score (NPS)</string>
-    <string name="customer_retention_rate_title">Taxa de Retorno de Clientes</string>
+    <string name="customer_retention_rate_title">Customer Return Rate</string>
+    <string name="cost_of_goods_sold_title">Cost of Goods Sold (COGS)</string>
     <string name="customer_acquisition_rate_title">Customer Retention Rate</string>
     <string name="churn_rate_title">Churn Rate</string>
     <string name="customer_lifetime_value_title">Customer Lifetime Value</string>

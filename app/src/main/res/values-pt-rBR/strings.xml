@@ -108,6 +108,7 @@
     <string name="churn_rate_title">Taxa de Cancelamento</string>
     <string name="customer_lifetime_value_title">Valor Vitalício do Cliente</string>
     <string name="details_title">Detalhes</string>
+    <string name="cost_of_goods_sold_title">Custo das Mercadorias Vendidas (CMV)</string>
 
 
 </resources>

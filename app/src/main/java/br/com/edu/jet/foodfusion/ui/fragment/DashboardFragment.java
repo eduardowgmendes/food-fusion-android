@@ -66,27 +66,6 @@ public class DashboardFragment extends Fragment {
 
         metricsCalculator = new RestaurantMetricsCalculator(restaurant);
 
-        ImageView restaurantLogo = view.findViewById(R.id.restaurant_logo);
-
-        if (restaurant.getLogo() == null)
-            restaurantLogo.setImageResource(R.drawable.round_fastfood_24);
-
-        TextView restaurantName = view.findViewById(R.id.restaurant_name);
-        restaurantName.setText(restaurant.getName());
-
-        TextView restaurantDescription = view.findViewById(R.id.restaurant_description);
-        restaurantDescription.setText(restaurant.getDescription());
-
-        MaterialButton detailsButton = view.findViewById(R.id.see_details_button);
-        detailsButton.setOnClickListener(v -> {
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack("overview")
-                    .replace(R.id.overview_contents, RestaurantOverviewFragment.newInstance(restaurant))
-                    .commit();
-        });
-
         List<DefaultSection> dashboardSections = new ArrayList<>();
         dashboardSections.add(createFinanceSection());
         dashboardSections.add(createOperationalSection());
