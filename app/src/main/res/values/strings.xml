@@ -33,7 +33,7 @@
     <string name="type_label">Type</string>
     <string name="description_label">Description</string>
     <string name="name_label">Name</string>
-    <string name="deleted_at_title">Deleted At</string>
+    <string name="deleted_at_title">Deactivated At</string>
     <string name="updated_at_title">Updated At</string>
     <string name="created_at_title">Created At</string>
     <string name="deleted_title">Deleted</string>
@@ -113,8 +113,48 @@
     <string name="details_title">Details</string>
     <string name="restaurant_status_hint">Restaurant Status</string>
     <string name="active_hint">Active</string>
-    <string name="erased_hint">Erased</string>
-    <string name="restaurant_message">Your Restaurant is: %s</string>
+    <string name="erased_hint">Deactivated</string>
+    <string name="erase">Deactivate</string>
+    <string name="recover">Activate</string>
+    <string name="restaurant_message">Your Restaurant is %s. Wish %s?</string>
     <string name="email_title">E-mail</string>
     <string name="metrics_title">Metrics</string>
+    <string name="history_title">History</string>
+    <string name="history_message">View the history of restaurant records, including creation, updates, and deletions, with timestamps and key details for tracking changes.</string>
+    <string name="deactivate_restaurant_title">Deactivate Restaurant</string>
+    <string name="service_times">Service Times</string>
+    <string name="backdrop_title" translatable="false">Backdrop</string>
+    <string name="visual_title">Visual Identity</string>
+    <string name="visual_message">Customize the Logo and Backdrop to create an engaging and visually aligned experience for your restaurant’s customers.</string>
+    <string name="choose_something_hint">Choose</string>
+    <string name="choose_image_tooltip">Choose New Image</string>
+    <string name="upload_logo_backdrop_message">Logo: 500x500 pixels (PNG or JPEG format, transparent background recommended). Backdrop: 1920x1080 pixels (PNG or JPEG format, high quality).</string>
+    <string name="crop_image_hint">Crop Image</string>
+    <string name="logo_backdrop_title" translatable="false">Logo &amp; Backdrop</string>
+    <string name="logo_backdrop_message">Visual elements that define your brand\'s identity and set the scene.</string>
+    <string name="new_service_time">Service Time</string>
+
+    <string name="cuisine_italian">Italian</string>
+    <string name="cuisine_japanese">Japanese</string>
+    <string name="cuisine_thai">Thai</string>
+    <string name="cuisine_chinese">Chinese</string>
+    <string name="cuisine_mexican">Mexican</string>
+    <string name="cuisine_indian">Indian</string>
+    <string name="cuisine_american">American</string>
+    <string name="cuisine_french">French</string>
+    <string name="cuisine_brazilian">Brazilian</string>
+    <string name="cuisine_mediterranean">Mediterranean</string>
+    <string name="cuisine_spanish">Spanish</string>
+    <string name="cuisine_greek">Greek</string>
+    <string name="cuisine_korean">Korean</string>
+    <string name="cuisine_vietnamese">Vietnamese</string>
+    <string name="cuisine_turkish">Turkish</string>
+    <string name="cuisine_arabic">Arabic</string>
+    <string name="see_service_times">See Service Times</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="activated">Active</string>
+    <string name="deactivated">Deactivated</string>
+    <string name="activate">Activate</string>
+    <string name="panel">Panel</string>
+
 </resources>

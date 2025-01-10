@@ -11,6 +11,7 @@ import br.com.edu.jet.foodfusion.client.FoodFusionAPI;
 import br.com.edu.jet.foodfusion.client.converter.RestaurantConverter;
 import br.com.edu.jet.foodfusion.client.converter.RestaurantConverterHelper;
 import br.com.edu.jet.foodfusion.client.request.CreateRestaurantRequest;
+import br.com.edu.jet.foodfusion.client.response.EraseRestaurantsResponse;
 import br.com.edu.jet.foodfusion.client.response.create.CreateRestaurantResponse;
 import br.com.edu.jet.foodfusion.client.response.delete.DeleteRestaurantResponse;
 import br.com.edu.jet.foodfusion.client.response.retrieve.RetrieveRestaurantsResponse;
@@ -31,10 +32,10 @@ public class RestaurantRepository {
         this.foodFusionAPI = FoodFusionApplication.getRetrofit().create(FoodFusionAPI.class);
     }
 
-    public LiveData<List<Restaurant>> getAll() {
+    public LiveData<List<Restaurant>> getAll(boolean includeAll) {
         MutableLiveData<List<Restaurant>> data = new MutableLiveData<>();
 
-        foodFusionAPI.getRestaurants().enqueue(new Callback<RetrieveRestaurantsResponse>() {
+        foodFusionAPI.getRestaurants(includeAll).enqueue(new Callback<RetrieveRestaurantsResponse>() {
             @Override
             public void onResponse(Call<RetrieveRestaurantsResponse> call, Response<RetrieveRestaurantsResponse> response) {
                 if (response.isSuccessful()) {
@@ -119,5 +120,45 @@ public class RestaurantRepository {
             }
         });
         return mutableLiveData;
+    }
+
+    public LiveData<Restaurant> eraseById(long restaurantId) {
+        MutableLiveData<Restaurant> restaurantMutableLiveData = new MutableLiveData<>();
+        foodFusionAPI.eraseRestaurantById(restaurantId).enqueue(new Callback<EraseRestaurantsResponse>() {
+            @Override
+            public void onResponse(Call<EraseRestaurantsResponse> call, Response<EraseRestaurantsResponse> response) {
+                if (response.isSuccessful()) {
+                    RestaurantDTO restaurantDTO = response.body().getRestaurant();
+                    Restaurant restaurant = RestaurantConverterHelper.toRestaurant(restaurantDTO);
+                    restaurantMutableLiveData.setValue(restaurant);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EraseRestaurantsResponse> call, Throwable throwable) {
+                restaurantMutableLiveData.setValue(null);
+            }
+        });
+        return restaurantMutableLiveData;
+    }
+
+    public LiveData<Restaurant> recoverById(long restaurantId) {
+        MutableLiveData<Restaurant> restaurantMutableLiveData = new MutableLiveData<>();
+        foodFusionAPI.recoverRestaurantById(restaurantId).enqueue(new Callback<EraseRestaurantsResponse>() {
+            @Override
+            public void onResponse(Call<EraseRestaurantsResponse> call, Response<EraseRestaurantsResponse> response) {
+                if (response.isSuccessful()) {
+                    RestaurantDTO restaurantDTO = response.body().getRestaurant();
+                    Restaurant restaurant = RestaurantConverterHelper.toRestaurant(restaurantDTO);
+                    restaurantMutableLiveData.setValue(restaurant);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EraseRestaurantsResponse> call, Throwable throwable) {
+                restaurantMutableLiveData.setValue(null);
+            }
+        });
+        return restaurantMutableLiveData;
     }
 }

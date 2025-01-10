@@ -39,4 +39,5 @@ public enum CuisineType {
             if (cuisineType.getCode() == code) return cuisineType;
         throw new IllegalArgumentException("Cuisine not found with given code: " + code);
     }
+
 }

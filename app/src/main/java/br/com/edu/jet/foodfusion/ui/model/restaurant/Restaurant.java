@@ -29,6 +29,7 @@ public class Restaurant implements Parcelable {
     private List<Phone> phones = new ArrayList<>();
     private List<Menu> menus = new ArrayList<>();
     private List<Email> emails;
+    private List<ServiceTime> serviceTimes = new ArrayList<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
@@ -41,13 +42,14 @@ public class Restaurant implements Parcelable {
         id = in.readLong();
         name = in.readString();
         description = in.readString();
+        type = CuisineType.valueOf(in.readString());
         logo = in.readString();
         backdrop = in.readString();
-        type = CuisineType.valueOf(in.readString());
         addresses = in.readArrayList(Address.class.getClassLoader(), Address.class);
         phones = in.readArrayList(Phone.class.getClassLoader(), Phone.class);
         menus = in.readArrayList(Menu.class.getClassLoader(), Menu.class);
         emails = in.readArrayList(Email.class.getClassLoader(), Email.class);
+        serviceTimes = in.readArrayList(ServiceTime.class.getClassLoader(), ServiceTime.class);
 
         String createdAtString = in.readString();
         createdAt = createdAtString != null ? LocalDateTime.parse(createdAtString, DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
@@ -154,6 +156,14 @@ public class Restaurant implements Parcelable {
         this.emails = emails;
     }
 
+    public List<ServiceTime> getServiceTimes() {
+        return serviceTimes;
+    }
+
+    public void setServiceTimes(List<ServiceTime> serviceTimes) {
+        this.serviceTimes = serviceTimes;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -191,12 +201,12 @@ public class Restaurant implements Parcelable {
         if (this == o) return true;
         if (!(o instanceof Restaurant)) return false;
         Restaurant that = (Restaurant) o;
-        return id == that.id && isDeleted == that.isDeleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && type == that.type && Objects.equals(logo, that.logo) && Objects.equals(backdrop, that.backdrop) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(emails, that.emails) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
+        return id == that.id && isDeleted == that.isDeleted && Objects.equals(name, that.name) && Objects.equals(description, that.description) && type == that.type && Objects.equals(logo, that.logo) && Objects.equals(backdrop, that.backdrop) && Objects.equals(addresses, that.addresses) && Objects.equals(phones, that.phones) && Objects.equals(menus, that.menus) && Objects.equals(serviceTimes, that.serviceTimes) && Objects.equals(emails, that.emails) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(deletedAt, that.deletedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, type, logo, backdrop, addresses, phones, menus, emails, createdAt, updatedAt, deletedAt, isDeleted);
+        return Objects.hash(id, name, description, type, logo, backdrop, addresses, phones, menus, serviceTimes, emails, createdAt, updatedAt, deletedAt, isDeleted);
     }
 
     @Override
@@ -211,6 +221,7 @@ public class Restaurant implements Parcelable {
                 ", addresses=" + addresses +
                 ", phones=" + phones +
                 ", menus=" + menus +
+                ", serviceTimes=" + serviceTimes +
                 ", emails=" + emails +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
@@ -229,14 +240,16 @@ public class Restaurant implements Parcelable {
         dest.writeLong(id);
         dest.writeString(name);
         dest.writeString(description);
+        dest.writeString(type.name());
         dest.writeString(logo);
         dest.writeString(backdrop);
-        dest.writeString(type.name());
 
         dest.writeList(addresses != null ? addresses : new ArrayList<>());
         dest.writeList(phones != null ? phones : new ArrayList<>());
         dest.writeList(menus != null ? menus : new ArrayList<>());
         dest.writeList(emails != null ? emails : new ArrayList<>());
+        dest.writeList(serviceTimes != null ? serviceTimes : new ArrayList<>());
+
         dest.writeString(createdAt != null ? createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
         dest.writeString(updatedAt != null ? updatedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
         dest.writeString(deletedAt != null ? deletedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);

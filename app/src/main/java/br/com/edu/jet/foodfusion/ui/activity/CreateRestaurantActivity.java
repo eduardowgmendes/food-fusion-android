@@ -21,9 +21,14 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.enums.CuisineType;
+import br.com.edu.jet.foodfusion.ui.utils.CuisineTypeTranslator;
 import br.com.edu.jet.foodfusion.utils.ResourceUtils;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
 
@@ -61,7 +66,9 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.restaurant_description_text_input);
         typeSelector = findViewById(R.id.restaurant_type_autocomplete_text_view);
 
-        typeSelector.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, CuisineType.values()));
+        ArrayAdapter<CuisineType> cuisineTypeArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, CuisineType.values());
+
+        typeSelector.setAdapter(cuisineTypeArrayAdapter);
         typeSelector.setOnItemClickListener(((parent, view, position, id) -> {
             selectedCuisineType = ((CuisineType) parent.getItemAtPosition(position));
         }));
@@ -79,7 +86,7 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                 public void onChanged(Restaurant restaurant) {
                     nameEditText.getEditText().setText(restaurant.getName());
                     descriptionEditText.getEditText().setText(restaurant.getDescription());
-                    typeSelector.setText(restaurant.getType().name(), false);
+                    typeSelector.setText(restaurant.getType().getDescription(), false);
                 }
             });
         } else {

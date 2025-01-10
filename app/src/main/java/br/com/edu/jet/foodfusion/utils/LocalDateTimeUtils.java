@@ -1,6 +1,7 @@
 package br.com.edu.jet.foodfusion.utils;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -30,6 +31,14 @@ public class LocalDateTimeUtils {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy- HH:mm", Locale.getDefault());
             LocalDateTime dateTime = LocalDateTime.parse(localDateTime);
             return dateTime.format(dateTimeFormatter);
+        }
+        return null;
+    }
+
+    public static LocalTime getLocalTime(String time) {
+        if (time != null) {
+            LocalTime localTime = LocalTime.parse(time);
+            localTime.format(DateTimeFormatter.ISO_LOCAL_TIME);
         }
         return null;
     }

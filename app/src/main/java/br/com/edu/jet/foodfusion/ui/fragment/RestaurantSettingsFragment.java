@@ -3,6 +3,7 @@ package br.com.edu.jet.foodfusion.ui.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -48,6 +49,10 @@ public class RestaurantSettingsFragment extends Fragment {
 
         RecyclerView properties = (RecyclerView) inflater.inflate(R.layout.fragment_restaurant_settings, container, false);
         properties.setAdapter(adapter);
+
+        if (sections.size() == 1) {
+            properties.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        }
 
         return properties;
     }

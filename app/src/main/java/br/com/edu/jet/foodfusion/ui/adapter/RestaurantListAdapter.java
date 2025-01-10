@@ -1,5 +1,6 @@
 package br.com.edu.jet.foodfusion.ui.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 import br.com.edu.jet.foodfusion.R;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
 import br.com.edu.jet.foodfusion.utils.LocalDateTimeUtils;
+import br.com.edu.jet.foodfusion.utils.ResourceUtils;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.RestaurantViewHolder> {
 
@@ -24,6 +27,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     private OnItemClickListener onItemClickListener;
 
     public RestaurantListAdapter() {
+
     }
 
     public interface OnItemClickListener extends Serializable {
@@ -64,9 +68,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         private final ImageView profilePicture;
         private final TextView name;
+        private final Context context;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            this.context = itemView.getContext();
 
             if (onItemClickListener != null) {
                 itemView.setOnClickListener(v -> onItemClickListener.onItemClick(getAdapterPosition()));
@@ -81,7 +88,17 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         }
 
         public void bind(Restaurant restaurant) {
+
+            ResourceUtils.init(context);
+
+            if (restaurant.getLogo() != null)
+                Picasso.get().load(restaurant.getLogo()).fit().centerCrop().into(profilePicture);
+
             name.setText(restaurant.getName());
+
+            if (restaurant.isDeleted()) {
+                name.setTextColor(ResourceUtils.getColor(android.R.color.darker_gray));
+            }
         }
     }
 }

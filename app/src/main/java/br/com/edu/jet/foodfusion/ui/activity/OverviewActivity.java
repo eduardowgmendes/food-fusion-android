@@ -2,6 +2,8 @@ package br.com.edu.jet.foodfusion.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -36,8 +39,11 @@ import br.com.edu.jet.foodfusion.ui.calculation.RestaurantMetricsCalculator;
 import br.com.edu.jet.foodfusion.ui.component.section.DefaultSection;
 import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
 import br.com.edu.jet.foodfusion.ui.component.section.item.list.SimpleCondensedItem;
+import br.com.edu.jet.foodfusion.ui.fragment.sheet.OptionsBottomSheetDialog;
 import br.com.edu.jet.foodfusion.ui.fragment.adapter.OverviewAdapter;
+import br.com.edu.jet.foodfusion.ui.fragment.adapter.transformer.DepthPageTransformer;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
+import br.com.edu.jet.foodfusion.ui.utils.CuisineTypeTranslator;
 import br.com.edu.jet.foodfusion.utils.ResourceUtils;
 import br.com.edu.jet.foodfusion.utils.RestaurantSettingsComposer;
 import br.com.edu.jet.foodfusion.viewmodel.RestaurantViewModel;
@@ -52,13 +58,13 @@ public class OverviewActivity extends BaseActivity {
     private ImageView restaurantLogo;
     private TextView restaurantName;
     private TextView restaurantDescription, restaurantType;
-    private MaterialButton restaurantStatusButton;
+    private MaterialButton restaurantStatusButton, restaurantTypeButton, restaurantServiceTimeButton;
     private TabLayout sectionsTabLayout;
     private ViewPager2 overviewPager;
     private ImageView restaurantBackdrop;
     private FloatingActionButton utilityFloatingActionButton;
-
     private RestaurantSettingsComposer restaurantSettingsComposer;
+    private MenuItem restaurantStatusMenuItem;
 
     private List<List<DefaultSection>> allSections;
 
@@ -78,18 +84,20 @@ public class OverviewActivity extends BaseActivity {
 
         setSupportActionBar(findViewById(R.id.restaurant_overview_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.panel);
 
         restaurantLogo = findViewById(R.id.restaurant_logo);
         restaurantName = findViewById(R.id.restaurant_name);
         restaurantDescription = findViewById(R.id.restaurant_description);
-        restaurantType = findViewById(R.id.restaurant_type);
+        restaurantTypeButton = findViewById(R.id.restaurant_type_button);
+        restaurantServiceTimeButton = findViewById(R.id.restaurant_service_time);
 
         restaurantBackdrop = findViewById(R.id.restaurant_backdrop);
 
         sectionsTabLayout = findViewById(R.id.overview_tab_layout);
         overviewPager = findViewById(R.id.overview_view_pager);
+        overviewPager.setPageTransformer(new DepthPageTransformer());
         restaurantStatusButton = findViewById(R.id.restaurant_status_button);
-
 
         utilityFloatingActionButton = findViewById(R.id.utility_floating_action_button);
         utilityFloatingActionButton
@@ -110,6 +118,20 @@ public class OverviewActivity extends BaseActivity {
             restaurantViewModel.getById(restaurantId).observe(this, restaurant -> {
                 if (restaurant != null) {
                     configureAppBar(restaurant);
+
+                    if (restaurantStatusMenuItem != null) {
+                        restaurantStatusMenuItem.setTitle(restaurant.isDeleted() ? getString(R.string.recover) : getString(R.string.erase));
+                    }
+
+                    restaurantServiceTimeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            OptionsBottomSheetDialog
+                                    .create(getString(R.string.service_time_title), restaurantSettingsComposer.getServiceTimes(restaurant))
+                                    .show(getSupportFragmentManager(), OptionsBottomSheetDialog.TAG);
+                        }
+                    });
+
                     restaurantSettingsComposer = new RestaurantSettingsComposer(this, restaurant);
                     allSections = allSections(restaurant);
                     overviewPager.setAdapter(new OverviewAdapter(getSupportFragmentManager(), getLifecycle(), allSections));
@@ -131,17 +153,60 @@ public class OverviewActivity extends BaseActivity {
                         }
                     });
 
-                    restaurantType.setText(restaurant.getType().getDescription());
+                    restaurantTypeButton.setText(CuisineTypeTranslator.translateType(restaurant.getType(), this));
 
-                    restaurantStatusButton.setOnClickListener(v -> new AlertDialog.Builder(OverviewActivity.this)
-                            .setTitle(restaurant.getName())//TODO - LEMBRAR DESSA GAMBIARRA AQUI: !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint)
-                            .setMessage(String.format(getString(R.string.restaurant_message), !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint)))
-                            .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> {
-                                dialog.dismiss();
-                            }).show());
+                    if (restaurant.isDeleted()) {
+                        restaurantStatusButton.setIconResource(R.drawable.baseline_error_outline_24);
+                        restaurantStatusButton.setIconTint(provideTint(R.color.error));
+                        restaurantStatusButton.setText(R.string.erased_hint);
+                    } else {
+                        restaurantStatusButton.setIconResource(R.drawable.baseline_check_circle_outline_24);
+                        restaurantStatusButton.setIconTint(provideTint(R.color.success));
+                        restaurantStatusButton.setText(R.string.active_hint);
+                    }
+
+                    restaurantStatusButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            OptionsBottomSheetDialog
+                                    .create(getString(R.string.restaurant_status_hint), restaurantSettingsComposer.getStatus(restaurant))
+                                    .show(getSupportFragmentManager(), OptionsBottomSheetDialog.TAG);
+                        }
+                    });
+
+//                    restaurantStatusButton.setOnClickListener(v -> new AlertDialog.Builder(OverviewActivity.this)
+//                            .setTitle(restaurant.getName())
+//                            .setMessage(String.format(getString(R.string.restaurant_message), !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint), restaurant.isDeleted() ? getString(R.string.recover) : getString(R.string.erase)))
+//                            .setPositiveButton(restaurant.isDeleted() ? R.string.recover : R.string.erase, (dialog, which) -> {
+//                                if (restaurant.isDeleted()) {
+//                                    restaurantViewModel.recoverById(restaurantId).observe(this, new Observer<Restaurant>() {
+//                                        @Override
+//                                        public void onChanged(Restaurant restaurant) {
+//                                            Intent intent = new Intent();
+//                                            intent.putExtra("isRecovered", true);
+//                                            setResult(Activity.RESULT_OK, intent);
+//                                            finish();
+//                                        }
+//                                    });
+//                                } else {
+//                                    restaurantViewModel.eraseById(restaurantId).observe(this, new Observer<Restaurant>() {
+//                                        @Override
+//                                        public void onChanged(Restaurant restaurant) {
+//                                            Intent intent = new Intent();
+//                                            intent.putExtra("isErased", true);
+//                                            setResult(Activity.RESULT_OK, intent);
+//                                            finish();
+//                                        }
+//                                    });
+//                                }
+//                            }).show());
                 }
             });
         }
+    }
+
+    private ColorStateList provideTint(int color) {
+        return ColorStateList.valueOf(ContextCompat.getColor(this, color));
     }
 
     private final View.OnClickListener createMenu = v -> new AlertDialog.Builder(OverviewActivity.this)
@@ -162,23 +227,32 @@ public class OverviewActivity extends BaseActivity {
             .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> dialog.dismiss())
             .show();
 
+    private final View.OnClickListener createEmail = v -> new AlertDialog.Builder(OverviewActivity.this)
+            .setTitle(R.string.create_something_button_hint)
+            .setMessage(R.string.feature_not_implemented_message)
+            .setPositiveButton(R.string.ok_button_hint, (dialog, which) -> dialog.dismiss())
+            .show();
+
     private void updateFabPosition(int position) {
 
         switch (position) {
             case 0:
-            case 4:
+            case 1:
                 hideFab(utilityFloatingActionButton);
                 break;
-            case 1:
+            case 2:
                 utilityFloatingActionButton.setOnClickListener(createMenu);
                 showFab(utilityFloatingActionButton);
                 break;
-            case 2:
+            case 3:
                 utilityFloatingActionButton.setOnClickListener(createAddress);
                 showFab(utilityFloatingActionButton);
                 break;
-            case 3:
+            case 4:
                 utilityFloatingActionButton.setOnClickListener(createPhone);
+                showFab(utilityFloatingActionButton);
+            case 5:
+                utilityFloatingActionButton.setOnClickListener(createEmail);
                 showFab(utilityFloatingActionButton);
                 break;
         }
@@ -201,8 +275,13 @@ public class OverviewActivity extends BaseActivity {
     }
 
     private void configureAppBar(Restaurant restaurant) {
-        if (restaurant.getLogo() == null) {
-            restaurantLogo.setImageResource(R.drawable.round_fastfood_24);
+        if (restaurant.getLogo() != null) {
+            Picasso.get()
+                    .load(restaurant.getLogo()).fit()
+                    .centerCrop()
+                    .into(restaurantLogo);
+        } else {
+            restaurantLogo.setImageResource(R.drawable.twotone_broken_image_24);
         }
         restaurantName.setText(restaurant.getName());
         restaurantDescription.setText(restaurant.getDescription());
@@ -212,6 +291,9 @@ public class OverviewActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater()
                 .inflate(R.menu.restaurant_overview_menu, menu);
+
+        restaurantStatusMenuItem = menu.findItem(R.id.action_restaurant_erase);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -220,6 +302,7 @@ public class OverviewActivity extends BaseActivity {
         if (item.getItemId() == R.id.action_settings) {
             Toast.makeText(this, "Entering settings", Toast.LENGTH_SHORT).show();
         }
+
         if (item.getItemId() == R.id.action_restaurant_delete) {
             restaurantViewModel.deleteById(restaurantId).observe(this, new Observer<Long>() {
                 @Override
@@ -231,23 +314,38 @@ public class OverviewActivity extends BaseActivity {
                 }
             });
         }
+
+        if (item.getItemId() == R.id.action_restaurant_erase) {
+            restaurantViewModel.eraseById(restaurantId).observe(this, new Observer<Restaurant>() {
+                @Override
+                public void onChanged(Restaurant restaurant) {
+                    if (restaurant.isDeleted()) {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("isErased", true);
+                        setResult(Activity.RESULT_OK, resultIntent);
+                        finish();
+                    }
+                }
+            });
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     private String getSectionTitle(int position) {
         switch (position) {
             case 0:
-                return ResourceUtils.getString(R.string.profile);
-            case 1:
-                return ResourceUtils.getString(R.string.menus);
-            case 2:
-                return ResourceUtils.getString(R.string.location_title);
-            case 3:
-                return ResourceUtils.getString(R.string.contacts_title);
-            case 4:
-                return ResourceUtils.getString(R.string.email_title);
-            case 5:
                 return ResourceUtils.getString(R.string.metrics_title);
+            case 1:
+                return ResourceUtils.getString(R.string.profile);
+            case 2:
+                return ResourceUtils.getString(R.string.menus);
+            case 3:
+                return ResourceUtils.getString(R.string.location_title);
+            case 4:
+                return ResourceUtils.getString(R.string.contacts_title);
+            case 5:
+                return ResourceUtils.getString(R.string.email_title);
             default:
                 throw new IllegalArgumentException("Invalid position: " + position);
         }
@@ -255,12 +353,12 @@ public class OverviewActivity extends BaseActivity {
 
     private List<List<DefaultSection>> allSections(Restaurant restaurant) {
         List<List<DefaultSection>> allSections = new ArrayList<>();
+        allSections.add(metrics(restaurant));
         allSections.add(generalInfo(restaurant));
         allSections.add(menus());
         allSections.add(addresses());
         allSections.add(phones());
         allSections.add(emails());
-        allSections.add(metrics(restaurant));
         return allSections;
     }
 
@@ -291,7 +389,16 @@ public class OverviewActivity extends BaseActivity {
     private List<DefaultSection> generalInfo(Restaurant restaurant) {
         List<DefaultSection> sections = new ArrayList<>();
         RestaurantSettingsComposer restaurantSettingsComposer = new RestaurantSettingsComposer(this, restaurant);
+        sections.add(createSection(ResourceUtils.getString(R.string.visual_title), ResourceUtils.getString(R.string.visual_message), restaurantSettingsComposer.getVisual()));
         sections.add(createSection(ResourceUtils.getString(R.string.establishment_title), ResourceUtils.getString(R.string.establishment_message), restaurantSettingsComposer.getGeneralInfo()));
+        sections.add(createSection(ResourceUtils.getString(R.string.history_title), ResourceUtils.getString(R.string.history_message), restaurantSettingsComposer.getHistory()));
+        return sections;
+    }
+
+    private List<DefaultSection> history(Restaurant restaurant) {
+        List<DefaultSection> sections = new ArrayList<>();
+        RestaurantSettingsComposer restaurantSettingsComposer = new RestaurantSettingsComposer(this, restaurant);
+        sections.add(createSection(ResourceUtils.getString(R.string.history_title), ResourceUtils.getString(R.string.history_message), restaurantSettingsComposer.getHistory()));
         return sections;
     }
 

@@ -51,4 +51,13 @@ public class MenuDTO {
     public int hashCode() {
         return Objects.hash(name, description, items);
     }
+
+    @Override
+    public String toString() {
+        return "MenuDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", items=" + items +
+                '}';
+    }
 }

@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ActivityResultLauncher<Intent> restaurantManagementLauncher;
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private boolean includeAll = true;
 
     private RestaurantViewModel restaurantViewModel;
     private EmptyStateRepository emptyStateRepository;
@@ -49,10 +50,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         restaurantManagementLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                boolean isDeleted = result.getData().getBooleanExtra("isDeleted", false);
-                boolean created = result.getData().getBooleanExtra("created", false);
 
-                if (created || isDeleted) {
+                boolean isDeleted = result.getData().getBooleanExtra("isDeleted", false);
+                boolean isErased = result.getData().getBooleanExtra("isErased", false);
+                boolean created = result.getData().getBooleanExtra("created", false);
+                boolean isRecovered = result.getData().getBooleanExtra("isRecovered", false);
+
+                if (created || isDeleted || isErased || isRecovered) {
                     configureRestaurantsList(restaurantViewModel);
                 }
             }
@@ -67,7 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void configureRestaurantsList(RestaurantViewModel restaurantViewModel) {
         replace(R.id.main_content, LoaderFragment.newInstance());
-        restaurantViewModel.getAll().observe(this, restaurants -> {
+        restaurantViewModel.getAll(includeAll).observe(this, restaurants -> {
             if (restaurants != null) {
                 if (restaurants.isEmpty()) {
                     replace(R.id.main_content, EmptyStateFragment.newInstance(emptyStateRepository.emptyListIssue()));

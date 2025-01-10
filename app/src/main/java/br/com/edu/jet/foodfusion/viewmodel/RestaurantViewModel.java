@@ -18,8 +18,8 @@ public class RestaurantViewModel extends ViewModel {
         this.restaurantRepository = new RestaurantRepository();
     }
 
-    public LiveData<List<Restaurant>> getAll() {
-        return restaurantRepository.getAll();
+    public LiveData<List<Restaurant>> getAll(boolean includeAll) {
+        return restaurantRepository.getAll(includeAll);
     }
 
     public LiveData<Restaurant> getById(long restaurantId) {
@@ -32,6 +32,14 @@ public class RestaurantViewModel extends ViewModel {
 
     public LiveData<Long> deleteById(long restaurantId) {
         return restaurantRepository.deleteById(restaurantId);
+    }
+
+    public LiveData<Restaurant> eraseById(long restaurantId) {
+        return restaurantRepository.eraseById(restaurantId);
+    }
+
+    public LiveData<Restaurant> recoverById(long restaurantId) {
+        return restaurantRepository.recoverById(restaurantId);
     }
 
 }

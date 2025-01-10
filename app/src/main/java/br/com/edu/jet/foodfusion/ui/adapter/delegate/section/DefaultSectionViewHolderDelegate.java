@@ -15,7 +15,9 @@ import br.com.edu.jet.foodfusion.ui.adapter.ItemsAdapter;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.ViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.CondensedItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.ConfigurableItemViewHolderDelegate;
+import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.GridItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.ListItemViewHolderDelegate;
+import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.LogoItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.MessageItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.BasicItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.SimpleCondensedItemViewHolderDelegate;
@@ -69,6 +71,8 @@ public class DefaultSectionViewHolderDelegate implements ViewHolderDelegate<Defa
             adapter.registerDelegate(PropertyType.MESSAGE.getCode(), new MessageItemViewHolderDelegate());
             adapter.registerDelegate(PropertyType.CONDENSED.getCode(), new CondensedItemViewHolderDelegate());
             adapter.registerDelegate(PropertyType.SIMPLE_CONDENSED.getCode(), new SimpleCondensedItemViewHolderDelegate());
+            adapter.registerDelegate(PropertyType.LOGO.getCode(), new LogoItemViewHolderDelegate());
+            adapter.registerDelegate(PropertyType.GRID_ITEM.getCode(), new GridItemViewHolderDelegate());
 
             sectionItems.setAdapter(adapter);
         }

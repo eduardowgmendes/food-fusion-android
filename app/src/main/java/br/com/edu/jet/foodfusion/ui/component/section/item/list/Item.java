@@ -2,7 +2,10 @@ package br.com.edu.jet.foodfusion.ui.component.section.item.list;
 
 public abstract class Item {
 
-    private final String label;
+    private String label;
+
+    public Item() {
+    }
 
     public Item(String label) {
         this.label = label;
@@ -10,6 +13,10 @@ public abstract class Item {
 
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public abstract int getType();

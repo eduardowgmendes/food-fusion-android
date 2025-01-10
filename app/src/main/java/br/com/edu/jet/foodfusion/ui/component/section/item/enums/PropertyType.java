@@ -7,7 +7,8 @@ public enum PropertyType {
     CONFIGURABLE(2),
     MESSAGE(3),
     CONDENSED(4),
-    SIMPLE_CONDENSED(5);
+    SIMPLE_CONDENSED(5),
+    LOGO(6), GRID_ITEM(7);
 
     private final int code;
 
@@ -37,6 +38,14 @@ public enum PropertyType {
 
     public boolean isCondensed() {
         return this == CONDENSED;
+    }
+
+    public boolean isSimpleCondensed() {
+        return this == SIMPLE_CONDENSED;
+    }
+
+    public boolean isLogo() {
+        return this == LOGO;
     }
 
     public static PropertyType fromCode(int code) {

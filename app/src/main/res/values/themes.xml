@@ -14,5 +14,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/product_sans</item>
+
     </style>
+
 </resources>

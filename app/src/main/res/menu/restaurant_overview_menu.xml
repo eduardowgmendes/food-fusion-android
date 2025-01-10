@@ -7,6 +7,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_restaurant_erase"
+        android:title="@string/erase"
+        app:showAsAction="never" />
+    
+    <item
         android:id="@+id/action_settings"
         android:title="@string/settings_menu_option"
         app:showAsAction="never" />
