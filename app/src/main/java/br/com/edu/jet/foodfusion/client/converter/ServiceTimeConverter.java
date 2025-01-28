@@ -3,7 +3,7 @@ package br.com.edu.jet.foodfusion.client.converter;
 import java.time.LocalTime;
 
 import br.com.edu.jet.foodfusion.client.shared.dto.restaurant.ServiceTimeDTO;
-import br.com.edu.jet.foodfusion.ui.model.restaurant.ServiceTime;
+import br.com.edu.jet.foodfusion.ui.model.restaurant.servicetime.ServiceTime;
 
 public class ServiceTimeConverter extends AttributeConverter<ServiceTimeDTO, ServiceTime> {
 

@@ -1,4 +1,4 @@
-package br.com.edu.jet.foodfusion.ui.model.restaurant;
+package br.com.edu.jet.foodfusion.ui.model.restaurant.servicetime;
 
 import android.os.Parcel;
 import android.os.Parcelable;

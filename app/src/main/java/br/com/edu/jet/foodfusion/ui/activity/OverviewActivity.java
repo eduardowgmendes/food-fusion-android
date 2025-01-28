@@ -173,33 +173,6 @@ public class OverviewActivity extends BaseActivity {
                                     .show(getSupportFragmentManager(), OptionsBottomSheetDialog.TAG);
                         }
                     });
-
-//                    restaurantStatusButton.setOnClickListener(v -> new AlertDialog.Builder(OverviewActivity.this)
-//                            .setTitle(restaurant.getName())
-//                            .setMessage(String.format(getString(R.string.restaurant_message), !restaurant.isDeleted() ? getString(R.string.active_hint) : getString(R.string.erased_hint), restaurant.isDeleted() ? getString(R.string.recover) : getString(R.string.erase)))
-//                            .setPositiveButton(restaurant.isDeleted() ? R.string.recover : R.string.erase, (dialog, which) -> {
-//                                if (restaurant.isDeleted()) {
-//                                    restaurantViewModel.recoverById(restaurantId).observe(this, new Observer<Restaurant>() {
-//                                        @Override
-//                                        public void onChanged(Restaurant restaurant) {
-//                                            Intent intent = new Intent();
-//                                            intent.putExtra("isRecovered", true);
-//                                            setResult(Activity.RESULT_OK, intent);
-//                                            finish();
-//                                        }
-//                                    });
-//                                } else {
-//                                    restaurantViewModel.eraseById(restaurantId).observe(this, new Observer<Restaurant>() {
-//                                        @Override
-//                                        public void onChanged(Restaurant restaurant) {
-//                                            Intent intent = new Intent();
-//                                            intent.putExtra("isErased", true);
-//                                            setResult(Activity.RESULT_OK, intent);
-//                                            finish();
-//                                        }
-//                                    });
-//                                }
-//                            }).show());
                 }
             });
         }

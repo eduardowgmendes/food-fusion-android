@@ -16,6 +16,7 @@ import br.com.edu.jet.foodfusion.ui.model.restaurant.email.Email;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.enums.CuisineType;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.menu.Menu;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.phone.Phone;
+import br.com.edu.jet.foodfusion.ui.model.restaurant.servicetime.ServiceTime;
 
 public class Restaurant implements Parcelable {
 

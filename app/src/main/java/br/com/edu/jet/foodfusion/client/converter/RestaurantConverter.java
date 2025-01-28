@@ -1,7 +1,6 @@
 package br.com.edu.jet.foodfusion.client.converter;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -12,7 +11,7 @@ import br.com.edu.jet.foodfusion.client.shared.dto.contact.info.PhoneDTO;
 import br.com.edu.jet.foodfusion.client.shared.dto.restaurant.MenuDTO;
 import br.com.edu.jet.foodfusion.client.shared.dto.restaurant.RestaurantDTO;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
-import br.com.edu.jet.foodfusion.ui.model.restaurant.ServiceTime;
+import br.com.edu.jet.foodfusion.ui.model.restaurant.servicetime.ServiceTime;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.address.Address;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.email.Email;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.menu.Menu;

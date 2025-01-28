@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +25,7 @@ import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.LogoItemViewHolderDele
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.MessageItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.adapter.delegate.item.SimpleCondensedItemViewHolderDelegate;
 import br.com.edu.jet.foodfusion.ui.component.section.item.enums.PropertyType;
-import br.com.edu.jet.foodfusion.ui.component.section.item.list.BasicItem;
-import br.com.edu.jet.foodfusion.ui.component.section.item.list.ConfigurableItem;
 import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
-import br.com.edu.jet.foodfusion.ui.model.restaurant.ServiceTime;
 
 public class OptionsBottomSheetDialog extends BottomSheetDialogFragment {
 

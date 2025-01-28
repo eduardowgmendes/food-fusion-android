@@ -20,7 +20,7 @@ import br.com.edu.jet.foodfusion.ui.component.section.item.list.Item;
 import br.com.edu.jet.foodfusion.ui.component.section.item.list.BasicItem;
 import br.com.edu.jet.foodfusion.ui.enums.YesNoEnum;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.Restaurant;
-import br.com.edu.jet.foodfusion.ui.model.restaurant.ServiceTime;
+import br.com.edu.jet.foodfusion.ui.model.restaurant.servicetime.ServiceTime;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.address.Address;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.email.Email;
 import br.com.edu.jet.foodfusion.ui.model.restaurant.menu.Menu;
