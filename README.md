@@ -13,7 +13,12 @@ FoodFusion Mobile is an Android application designed for restaurant and bar mana
 - Internet connection for API communication
 - [FoodFusion API](https://github.com/eduardowgmendes/food-fusion-api)
 
-## Main Workflow
+## Screenshots
+### Main Workflow
+![Basic Workflow](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/main-management-workflow)
+*Basic workflow to manage your establishments.*
+
+#### Main Workflow
 ![Basic Workflow](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/main-management-workflow)
 *Basic workflow to manage your establishments.*
 
