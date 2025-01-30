@@ -14,13 +14,23 @@ FoodFusion Mobile is an Android application designed for restaurant and bar mana
 - [FoodFusion API](https://github.com/eduardowgmendes/food-fusion-api)
 
 ## Screenshots
-### Main Workflow
-![Basic Workflow](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/main-management-workflow)
-*Basic workflow to manage your establishments.*
-
 #### Main Workflow
 ![Basic Workflow](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/main-management-workflow)
-*Basic workflow to manage your establishments.*
+*Effortlessly manage your establishments with a streamlined workflow.*
+
+#### Establishment Metrics
+![Establishment Metrics](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/overview-metrics-available)
+*Monitor real-time metrics and make informed decisions instantly.*
+
+#### Edit Establishment data
+![Edit establishment data](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/overview-profile-info)
+*Easily update and manage establishment details.*
+
+#### Creating a New Restaurant Workflow
+![Creating a new Restaurant](https://github.com/eduardowgmendes/food-fusion-android/blob/main/screenshots/creating-new-restaurant-workflow)
+*Seamlessly add and configure new establishments.*
+
+
 
 
 ## Installation
